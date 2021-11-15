@@ -1,0 +1,172 @@
+Skip to content
+Search or jump to…
+Pull requests
+Issues
+Marketplace
+Explore
+ 
+@Kunkanya 
+MaximilienProville75
+/
+ProvilleMaximilien_P7
+Public
+1
+00
+Code
+Issues
+Pull requests
+Actions
+Projects
+Wiki
+Security
+Insights
+ProvilleMaximilien_P7/index.html
+@MaximilienProville75
+MaximilienProville75 Fonctionnality In Progress
+Latest commit 9281fc9 on Oct 1
+ History
+ 1 contributor
+142 lines (140 sloc)  4.02 KB
+   
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <script
+      src="https://kit.fontawesome.com/a8f258b41c.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="style.css" />
+    <script type="module" src="main.js"></script>
+
+    <title>Les Petits Plats</title>
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <img src="Media_Ressources/logo.svg" alt="Logo" />
+      </div>
+    </header>
+    <main>
+      <div class="ResearchField">
+        <form class="search">
+          <input
+            oninput="filterRecipe(this.value)"
+            oninput="filterIngredient(this.value)"
+            type="search"
+            class="form-control"
+            placeholder="Search..."
+            submit
+          />
+        </form>
+        <!-- <input class="search" type="search" placeholder="Search..." /> -->
+
+        <i class="fas fa-search"></i>
+      </div>
+      <div id="researchResult"></div>
+      <div id="tagList"></div>
+      <div class="PageFilter">
+        <div id="filterByIngredients">
+          <a
+            href="#"
+            id="orderByClick"
+            role="button"
+            aria-haspopup="listbox"
+            aria-expanded="false"
+            aria-label="Order by"
+            aria-controls="orderOptions"
+            aria-labelledby="order-by__title"
+          >
+            <span id="orderSelected"></span>
+            <div class="orderImg">
+              <img
+                src="Media_Ressources/arrowDown.svg"
+                alt=""
+                id="orderbotArrow"
+              />
+            </div>
+          </a>
+          <div class="orderOption" role="listbox" id="filterByIngredientsList">
+            <a
+              href="#"
+              class="option"
+              data-value="popularite"
+              aria-selected="true"
+              role="option"
+              >Ingredients</a
+            >
+          </div>
+        </div>
+        <div id="filterByAppareil">
+          <a
+            href="#"
+            id="orderByClick"
+            role="button"
+            aria-haspopup="listbox"
+            aria-expanded="false"
+            aria-label="Order by"
+            aria-controls="orderOptions"
+            aria-labelledby="order-by__title"
+          >
+            <span id="orderSelected"></span>
+            <div class="orderImg">
+              <img
+                src="Media_Ressources/arrowDown.svg"
+                alt=""
+                id="orderbotArrow2"
+              />
+            </div>
+          </a>
+          <div class="orderOptions" role="listbox" id="filterByApplianceList">
+            <a
+              href="#"
+              class="option"
+              data-value="popularite"
+              aria-selected="true"
+              role="option"
+              >Appareil</a
+            >
+          </div>
+        </div>
+        <div id="filterByUstensils">
+          <a
+            href="#"
+            id="orderByClick"
+            role="button"
+            aria-haspopup="listbox"
+            aria-expanded="false"
+            aria-label="Order by"
+            aria-controls="orderOptions"
+            aria-labelledby="order-by__title"
+          >
+            <span id="orderSelected"></span>
+            <div class="orderImg">
+              <img
+                src="Media_Ressources/arrowDown.svg"
+                alt=""
+                id="orderbotArrow2"
+              />
+            </div>
+          </a>
+          <div class="orderOptions" role="listbox" id="filterByUstensilsList">
+            <a
+              href="#"
+              class="option"
+              data-value="popularite"
+              aria-selected="true"
+              role="option"
+              >Ustensils</a
+            >
+          </div>
+        </div>
+      </div>
+      <div id="RecipeGallery"></div>
+    </main>
+  </body>
+</html>

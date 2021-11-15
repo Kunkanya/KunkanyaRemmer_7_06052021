@@ -16,12 +16,48 @@
     <img class="logo" src="./logo.png" alt="Logo de les petits plats">
 </header>
 
+<!--Search bar section-->
 <section id="search">
-    <form class="form_container" action="">
-        <input id="search_input" type="text" 
-    placeholder="Rechercher un ingrédient, appareil, ustensiles ou une recette">
+    <form class="form_container curser" action="">
+        <input class="tag"
+            id="search_input"
+            type="text" 
+            placeholder="Rechercher un ingrédient, appareil, ustensiles ou une recette">
         <i class="fas fa-search"></i>
     </form>
 </section>
+
+<!--Dropdown search each category-->
+<main>
+<div class="tag_wrapper">
+    <div class="tag_container curser" id="searchByIngredients" >
+        <form action="">
+            <input  type="text"
+                    class="input_tag"
+                    placeholder="Ingredients"
+            >
+        </form>
+        <i class="fas fa-angle-up"></i>
+        <!--
+        <div class="dropdown_container">
+            <ul>
+                <li>coco</li>
+                <li>noix</li>
+            </ul>
+        </div>
+        -->
+    </div>
+    <div class="tag_container curser" id="searchByAppareils" >
+        <p>Appareils</p>
+        <i class="fas fa-angle-up"></i>
+    </div>
+    <div class="tag_container curser" id="searchByUstensiles" >
+        <p>Ustensiles</p>
+        <i class="fas fa-angle-up"></i>
+</div>
+</div>
+</main>
+<!--Script javascript and bootstrap-->
+<script src="./main.js" type="module"></script>
 </body>
 </html>
