@@ -98,15 +98,21 @@ input[type="text"].tag ::-webkit-input-placeholder{
   color: white;
 }
 .dropdown_container{
-  width: 300px;
-  height:auto;
+  width: 600px;
   position:absolute;
   top: 80px;
-  background-color: var(--color_primary);
-
+  left:0;
+  border-radius: 5px;
+  padding: 1em;
+}
+.tag_contents{
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  grid-template-rows: auto;
+  font-size: 0.7em;
 }
 
-#searchByIngredients{
+#searchByIngredients, #searchByIngredients > .dropdown_container {
   background-color: var(--color_tertiary);
 }
 #searchByAppareils{
