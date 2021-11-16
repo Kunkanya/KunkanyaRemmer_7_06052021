@@ -28,6 +28,14 @@ ul {
     list-style-type: none;
   }
 
+.hidden{
+  display:none; 
+}
+
+.show{
+  display: block;
+}
+
 .curser{
   cursor: pointer;;
 }
@@ -112,7 +120,7 @@ input[type="text"].tag ::-webkit-input-placeholder{
   font-size: 0.7em;
 }
 
-#searchByIngredients, #searchByIngredients > .dropdown_container {
+#searchByIngredients, #searchByIngredients > .dropdown_container, .show_selected_ingredient {
   background-color: var(--color_tertiary);
 }
 #searchByAppareils{
@@ -121,3 +129,4 @@ input[type="text"].tag ::-webkit-input-placeholder{
 #searchByUstensiles{
   background-color: var(--color_cinq);
 }
+
