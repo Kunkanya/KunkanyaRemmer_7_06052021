@@ -35,11 +35,35 @@ export default class classRecipe{
     createIngredients(){
         return `
         ${this.ingredients.map(function(eachIngredient){
-            if(eachIngredient.unit === undefined){
-                return ""
-            }
-
-            return ` <li> ${eachIngredient.ingredient}: ${eachIngredient.quantity} ${eachIngredient.unit} </li>
+            let unit = eachIngredient.unit
+            let quantity = eachIngredient.quantity
+                function checkQuantity(){
+                    if(quantity === undefined){
+                        quantity = ""
+                        return quantity
+                    }else{
+                        return quantity
+                    }
+                }                
+                function checkUnit(){
+                    if(unit === undefined){
+                        unit = ""
+                        return unit
+                    }else if(unit ="grammes"){
+                        return "g"
+                    }
+                    else{
+                        return unit
+                    }
+                }
+                function addColon(){
+                    if(unit || quantity){
+                        return ":"
+                    }else {
+                        return ""
+                    }
+                }
+            return ` <li> ${eachIngredient.ingredient} ${addColon()} ${checkQuantity()} ${checkUnit()} </li>
             `
         }).join('')}
         `
