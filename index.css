@@ -94,6 +94,16 @@ header{
   color: white;
   margin-right:  3em;
 }
+#selected_ingredient{
+  width: 170px;
+  height: auto-fit;
+  border-radius: 5px;
+  color: white; 
+  padding: 10px;
+  position : relative;
+  top:0;  
+}
+
 .input_tag{
   border:none;
   background-color: var(--color_tertiary);
@@ -107,11 +117,14 @@ input[type="text"].tag ::-webkit-input-placeholder{
 }
 .dropdown_container{
   width: 600px;
+  height: 300px;
   position:absolute;
   top: 80px;
   left:0;
   border-radius: 5px;
   padding: 1em;
+  z-index: 3 ;
+  overflow: scroll;
 }
 .tag_contents{
   display: grid;
@@ -120,7 +133,8 @@ input[type="text"].tag ::-webkit-input-placeholder{
   font-size: 0.7em;
 }
 
-#searchByIngredients, #searchByIngredients > .dropdown_container, .show_selected_ingredient {
+
+#searchByIngredients, #searchByIngredients > .dropdown_container, #selected_ingredient {
   background-color: var(--color_tertiary);
 }
 #searchByAppareils{
@@ -130,3 +144,63 @@ input[type="text"].tag ::-webkit-input-placeholder{
   background-color: var(--color_cinq);
 }
 
+/*--RECIPE SECTION*/
+#recipe_wrapper{
+  border: red 2px solid;
+
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  column-gap: 2em;
+  grid-template-rows: auto;
+  row-gap: 2em;
+  justify-self: center;
+  margin-top: 5em;
+}
+.recipe_container{
+  height: 365px;
+  background-color: var(--color_secondary);
+  border-radius: 5px;
+  position: relative;
+}
+.recipe_details{
+  position:absolute;
+  bottom: 0;
+  height: 180px;
+  background-color: lightgray;
+  border-radius:  0 0 5px 5px;
+}
+
+.recipe_details {
+  padding:1em;
+}
+.recipe_head{
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: fit-content;
+}
+
+.fa-clock{
+  padding-right: 0.5em;
+}
+.cooking_section{
+  display: flex;
+  flex-direction: row;
+  margin-top: 1em;
+}
+
+.ingredients{
+  width:40%;
+  font-size: 0.75em;
+  font-weight: 700;
+  margin-right:0.5em;
+}
+.description{
+  width:60%;
+  font-size: 0.75em;
+  overflow: hidden;
+  display: flex;
+  display: -webkit-box;
+  -webkit-line-clamp: 8 ;
+  -webkit-box-orient: vertical;
+}

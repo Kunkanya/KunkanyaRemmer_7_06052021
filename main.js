@@ -1,3 +1,4 @@
+import classRecipe from "./classRecipe.js"
 import {recipes} from "./recipes.js"
 //--DOM
 const btnIngredients = document.getElementById("searchByIngredients")
@@ -65,6 +66,21 @@ btnIngredients.addEventListener('click', ()=>{
 //        x.classList.add('hidden')
 showTag.classList.remove('show')       
 showTag.innerHTML =""
-
     }
 })
+
+//--RECIPE_WRAPPER SECTION
+
+    recipes.map(function(recipe){
+    let showRecipe = new classRecipe(
+        recipe.name,
+        recipe.servings,
+        recipe.time,
+        recipe.ingredients, //array of ingredients
+        recipe.description,
+        recipe.appliance,
+        recipe.ustensils,
+    )
+    showRecipe.createRecipe()
+}).join("")
+

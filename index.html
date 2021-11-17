@@ -31,11 +31,11 @@
 <main>
 <div class="tag_wrapper">
     <!--Ordered by ingrediensts-->
-    <span></span>
+    <span id="selected_ingredient"><i class="far fa-times-circle"></i></span>
     <div class="tag_container curser" id="searchByIngredients" >
         <p>Ingredients</p>
         <i class="fas fa-angle-up"></i>
-        <div class="dropdown_container ">
+        <div class="dropdown_container hidden ">
             <ul id="dropdownIngredients" class="tag_contents">
             </ul>
         </div>
@@ -52,8 +52,17 @@
     <div class="tag_container curser" id="searchByUstensiles" >
         <p>Ustensiles</p>
         <i class="fas fa-angle-up"></i>
+    </div>
 </div>
+
+<div id="recipe_wrapper">
+
+    
+
 </div>
+
+
+
 </main>
 <!--Script javascript and bootstrap-->
 <script src="./main.js" type="module"></script>
