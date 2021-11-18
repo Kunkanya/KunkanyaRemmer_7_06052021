@@ -31,12 +31,13 @@
 <main>
 <div class="tag_wrapper">
     <!--Ordered by ingrediensts-->
-    <span id="selected_ingredient"><i class="far fa-times-circle"></i></span>
+    <!--<span id="selected_ingredient"><i class="far fa-times-circle"></i></span> -->
     <div class="tag_container curser" id="searchByIngredients" >
+        <input type="text" class="hidden" placeholder="Recherche un ingédient">
         <p>Ingredients</p>
-        <i class="fas fa-angle-up"></i>
-        <div class="dropdown_container hidden ">
-            <ul id="dropdownIngredients" class="tag_contents">
+        <i class="fas fa-angle-down"></i>
+        <div class="dropdown_container hidden" >
+            <ul  class="tag_contents" id="dropdownIngredients">
             </ul>
         </div>
     </div>
@@ -44,14 +45,14 @@
     <span></span>
     <div class="tag_container curser" id="searchByAppareils" >
         <p>Appareils</p>
-        <i class="fas fa-angle-up"></i>
+        <i class="fas fa-angle-down"></i>
     </div>
     
     <!--Ordered by ustensiles-->
     <span></span>
     <div class="tag_container curser" id="searchByUstensiles" >
         <p>Ustensiles</p>
-        <i class="fas fa-angle-up"></i>
+        <i class="fas fa-angle-down"></i>
     </div>
 </div>
 

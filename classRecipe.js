@@ -49,7 +49,7 @@ export default class classRecipe{
                     if(unit === undefined){
                         unit = ""
                         return unit
-                    }else if(unit ="grammes"){
+                    }else if(unit === "grammes"){
                         return "g"
                     }
                     else{

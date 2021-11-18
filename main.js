@@ -3,6 +3,8 @@ import {recipes} from "./recipes.js"
 //--DOM
 const btnIngredients = document.getElementById("searchByIngredients")
 const tagIngredients = document.getElementById("dropdownIngredients")
+const searchInput = document.getElementById("search_input")
+const tagContainers = document.querySelectorAll("tag_container")
 
 let ingredients = []
 let arrIngredients = [] 
@@ -33,14 +35,30 @@ console.log(ingredients)
 console.log(appareils)
 console.log(ustensiles)
 
+//tagContainers.forEach(tagContainer =>{
+//    tagContainer.addEventListener("click", ()=>{
+//        alert("hello")
+//    })
+//})
+
+
+
 btnIngredients.addEventListener('click', ()=>{
     let selectedTag
+    let parent = tagIngredients.parentElement
     const showTag = btnIngredients.previousElementSibling
     // Toggle class of "active"
     btnIngredients.classList.toggle("active")
+    //let tempInput = document.createElement("input")
+    //tempInput.setAttribute("type","text")
+    //tempInput.setAttribute("placeholder","Rechercher un ingédient")
+    //tempInput.classList.add("temp_input")
+
 
     if(btnIngredients.classList.contains("active")){
-        //tagIngredients.classList.toggle("hidden")
+        //btnIngredients.insertAdjacentElement("beforebegin",tempInput)
+
+        parent.classList.remove("hidden")
         tagIngredients.innerHTML = `  
         ${ingredients.map(function(ingredient){
             return `<li class="curser tag_ingredient" 
@@ -61,17 +79,15 @@ btnIngredients.addEventListener('click', ()=>{
             console.log(showTag)
         })
     } else{
-        const x = tagIngredients.parentElement
-        console.log(x)
-//        x.classList.add('hidden')
-showTag.classList.remove('show')       
-showTag.innerHTML =""
+        parent.classList.add("hidden")
+        showTag.classList.remove('show')       
+        showTag.innerHTML =""
     }
 })
-
+//----------------------------------------------------------------------------
 //--RECIPE_WRAPPER SECTION
-
-    recipes.map(function(recipe){
+//----------------------------------------------------------------------------
+recipes.map(function(recipe){
     let showRecipe = new classRecipe(
         recipe.name,
         recipe.servings,
@@ -84,3 +100,14 @@ showTag.innerHTML =""
     showRecipe.createRecipe()
 }).join("")
 
+//----------------------------------------------------------------------------
+//--SEARCH INPUT-DOM
+//----------------------------------------------------------------------------
+searchInput.addEventListener("keyup", (e)=>{
+    e.preventDefault
+    let searchWord = searchInput.value
+    console.log(searchWord)
+    if (searchWord.lenght < 3){
+        console.log("more")
+    }
+})

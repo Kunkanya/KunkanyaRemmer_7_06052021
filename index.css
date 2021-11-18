@@ -94,6 +94,19 @@ header{
   color: white;
   margin-right:  3em;
 }
+.active{
+  width: 600px;
+}
+
+.active > .fa-angle-down{
+  animation : arrow_rotate 0.5s forwards ease-in;
+}
+
+@keyframes arrow_rotate {
+  100% {transform: rotate(180deg);}
+  
+}
+
 #selected_ingredient{
   width: 170px;
   height: auto-fit;
@@ -101,7 +114,7 @@ header{
   color: white; 
   padding: 10px;
   position : relative;
-  top:0;  
+  top:-50px;  
 }
 
 .input_tag{
@@ -119,12 +132,12 @@ input[type="text"].tag ::-webkit-input-placeholder{
   width: 600px;
   height: 300px;
   position:absolute;
-  top: 80px;
+  top: 60px;
   left:0;
   border-radius: 5px;
   padding: 1em;
   z-index: 3 ;
-  overflow: scroll;
+  overflow-y: scroll;
 }
 .tag_contents{
   display: grid;
@@ -133,6 +146,11 @@ input[type="text"].tag ::-webkit-input-placeholder{
   font-size: 0.7em;
 }
 
+.temp_input{
+  position: relative;
+  left:0;
+  z-index: 4;
+}
 
 #searchByIngredients, #searchByIngredients > .dropdown_container, #selected_ingredient {
   background-color: var(--color_tertiary);
