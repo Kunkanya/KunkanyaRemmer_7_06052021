@@ -68,4 +68,19 @@ export default class classRecipe{
         }).join('')}
         `
     }
+
+    concatenateString(){
+        function allIngredients(){
+            this.ingredient.forEach(eachIngredient => {
+                let x
+                x.concat(eachIngredient)
+                console.log(x)
+                return x
+            });
+        }
+        let tempRecipe = ""
+         tempRecipe.concat(this.name, this.description,this.appliance,this.ustensiles,allIngredients())
+        console.log(tempRecipe)
+        //console.log(tempRecipe)   
+    }
 }

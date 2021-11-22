@@ -65,6 +65,10 @@ header{
   padding-left: 2em;
   margin: 2em 0
 }
+.error_text{
+  color: red;
+  padding-top: 5px;
+}
 .form_container{
   position: relative;
 }

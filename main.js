@@ -5,6 +5,7 @@ const btnIngredients = document.getElementById("searchByIngredients")
 const tagIngredients = document.getElementById("dropdownIngredients")
 const searchInput = document.getElementById("search_input")
 const tagContainers = document.querySelectorAll("tag_container")
+const errorText = document.getElementById("error")
 
 let ingredients = []
 let arrIngredients = [] 
@@ -87,6 +88,7 @@ btnIngredients.addEventListener('click', ()=>{
 //----------------------------------------------------------------------------
 //--RECIPE_WRAPPER SECTION
 //----------------------------------------------------------------------------
+
 recipes.map(function(recipe){
     let showRecipe = new classRecipe(
         recipe.name,
@@ -98,16 +100,55 @@ recipes.map(function(recipe){
         recipe.ustensils,
     )
     showRecipe.createRecipe()
+    //showRecipe.concatenateString()
 }).join("")
+
+
 
 //----------------------------------------------------------------------------
 //--SEARCH INPUT-DOM
 //----------------------------------------------------------------------------
 searchInput.addEventListener("keyup", (e)=>{
     e.preventDefault
-    let searchWord = searchInput.value
+    let searchStr = searchInput.value
+    let searchWord = searchStr.toLowerCase()
+    let searchWordLength = searchInput.value.length
     console.log(searchWord)
-    if (searchWord.lenght < 3){
-        console.log("more")
+
+    //--1. Validate the length of searchWord
+    inputValidation(searchWordLength)
+
+    //--2. set each recipeto one string and set to lowercase
+    for(let i= 0; i < searchWordLength; i++){
+        let tempRecipe = recipes[i].name + "," +
+            	         recipes[i].description +
+                         listIngredient() 
+                            
+            function listIngredient(){
+                let x = "" 
+                recipes[i].ingredients.forEach(ingredient=>{
+                    x += ingredient.ingredient + ' '
+                    })
+                return x
+            }
+
+     tempRecipe = tempRecipe.toLowerCase()
+     console.log(tempRecipe)
+    
     }
 })
+
+
+function inputValidation(value){
+    if (value <=2 && value > 0 ){
+        errorText.innerText =""
+        errorText.classList.remove("hidden")
+        errorText.classList.add("error_text")
+        errorText.innerText ="Veuilliez vous saisir au moins 3 charactors"
+    } else{
+        errorText.innerText =""
+        return
+    }
+
+
+}
