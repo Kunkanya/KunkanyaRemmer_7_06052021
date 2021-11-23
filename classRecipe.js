@@ -29,7 +29,7 @@ export default class classRecipe{
     </div>
     `
 
-    recipeContainer.innerHTML += recipeContainerHTML
+        recipeContainer.innerHTML += recipeContainerHTML
     }
 
     createIngredients(){
