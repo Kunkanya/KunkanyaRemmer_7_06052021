@@ -122,7 +122,6 @@ searchInput.addEventListener("keyup", (e)=>{
         searchWord = searchWord.trim()
     let searchWordLength = searchInput.value.length
     let foundArray =[]
-    console.log(searchWord)
 
     //--1. Validate the length of searchWord
     inputValidation(searchWordLength)
@@ -138,23 +137,21 @@ searchInput.addEventListener("keyup", (e)=>{
         }
 
         let tempRecipe = recipes[i].name + "," +
-            	         recipes[i].description +
                          listIngredient() 
                             
         tempRecipe = tempRecipe.toLowerCase()
         tempRecipe = tempRecipe.trim()
         
-    let foundItem = tempRecipe.includes(searchWord)
-    if(foundItem === true) {
-    let founDIndex = i
-        console.log (recipes[i].name + " " + tempRecipe + " has index of " + founDIndex)
-        foundArray.push(recipes[i])
+        let foundItem = tempRecipe.includes(searchWord)
+        
+        if(foundItem === true) {
+        let founDIndex = i
+            console.log (recipes[i].name + " " + tempRecipe + " has index of " + founDIndex)
+            foundArray.push(recipes[i])
+        }
     }
-    }
-    console.log(foundArray)
     recipeContainer.innerHTML =""
     renderRecipe(foundArray)
-
 
 })
 
