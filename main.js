@@ -7,6 +7,8 @@ const searchInput = document.getElementById("search_input")
 const tagContainers = document.querySelectorAll("tag_container")
 const errorText = document.getElementById("error")
 const recipeContainer = document.getElementById("recipe_wrapper")
+const resultSearch = document.getElementById("result_search")
+
 
 
 let ingredients = []
@@ -15,6 +17,7 @@ let appareils = []
 let arrAppareils =[]
 let ustensiles = []
 let arrUtensiles =[]
+let valid = false
 
 //--get all Ingredients, Appareils, Ustensiles
 recipes.forEach(recipe =>{
@@ -37,12 +40,6 @@ recipes.forEach(recipe =>{
 console.log(ingredients)
 console.log(appareils)
 console.log(ustensiles)
-
-//tagContainers.forEach(tagContainer =>{
-//    tagContainer.addEventListener("click", ()=>{
-//        alert("hello")
-//    })
-//})
 
 
 
@@ -125,7 +122,9 @@ searchInput.addEventListener("keyup", (e)=>{
 
     //--1. Validate the length of searchWord
     inputValidation(searchWordLength)
-
+    if(valid === false ){
+        return
+    }
     //--2. set each recipeto one string and set to lowercase
     for(let i= 0; i < recipes.length; i++){
         function listIngredient(){
@@ -141,32 +140,42 @@ searchInput.addEventListener("keyup", (e)=>{
                             
         tempRecipe = tempRecipe.toLowerCase()
         tempRecipe = tempRecipe.trim()
+
+        console.log(tempRecipe)
         
         let foundItem = tempRecipe.includes(searchWord)
-        
         if(foundItem === true) {
-        let founDIndex = i
-            console.log (recipes[i].name + " " + tempRecipe + " has index of " + founDIndex)
+            let founDIndex = i
+            resultSearch.innerHTML =""
+            console.log (tempRecipe + " has index of " + founDIndex)
             foundArray.push(recipes[i])
         }
+
+        if(foundArray.length > 0){
+        recipeContainer.innerHTML =""
+        renderRecipe(foundArray)
+    }else{
+        recipeContainer.innerText= "Aucune recette ne correspond à votre critère...vous puvez chercher 'tarte aux pommes', 'poisson'. etc"
     }
-    recipeContainer.innerHTML =""
-    renderRecipe(foundArray)
+
+    }
 
 })
 
+
 //--INPUT VALIDATION 
 function inputValidation(value){
-    let valid = false
-    if (value <= 3 && value > 0 ){
+   
+    if (value < 3 && value >0){
         errorText.innerText =""
         errorText.classList.remove("hidden")
         errorText.classList.add("error_text")
-        errorText.innerText ="Veuilliez vous saisir au moins 3 charactors"
-        valid = false 
-        return
+        errorText.innerText ="Veuilliez vous saisir au moins 3 charactères"
+        valid = false
+        return valid
+        
     } else{
         errorText.innerText =""
-        valid = true    
+        valid = true
     }
 }
