@@ -31,11 +31,15 @@
 
 <!--Dropdown search each category-->
 <main>
+    <div id="show_tag_ingredient" class="hidden"></div>
+
 <div class="tag_wrapper">
     <!--Ordered by ingrediensts-->
-    <!--<span id="selected_ingredient"><i class="far fa-times-circle"></i></span> -->
-    <div class="tag_container curser" id="searchByIngredients" >
-        <input type="text" class="hidden" placeholder="Recherche un ingédient">
+    <div id="btn_ingredients" class="tag_container blue curser"  >    
+    <input  id="search_input_by_ingredient" 
+                type="text" 
+                class="hidden" 
+                placeholder="Recherche un ingédient">
         <p>Ingredients</p>
         <i class="fas fa-angle-down"></i>
         <div class="dropdown_container hidden" >
@@ -44,17 +48,25 @@
         </div>
     </div>
     <!--Ordered by appareils-->
-    <span></span>
-    <div class="tag_container curser" id="searchByAppareils" >
+    <div id="show_tag_appareil"></div>
+    <div class="tag_container green curser" id="searchByAppareils" >
         <p>Appareils</p>
         <i class="fas fa-angle-down"></i>
+        <div class="dropdown_container hidden" >
+            <ul  class="tag_contents" id="dropdownAppareils">
+            </ul>
+        </div>
     </div>
     
     <!--Ordered by ustensiles-->
     <span></span>
-    <div class="tag_container curser" id="searchByUstensiles" >
+    <div class="tag_container red curser" id="searchByUstensiles" >
         <p>Ustensiles</p>
         <i class="fas fa-angle-down"></i>
+        <div class="dropdown_container hidden" >
+            <ul  class="tag_contents" id="dropdownUtensiles">
+            </ul>
+        </div>
     </div>
 </div>
 

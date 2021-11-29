@@ -1,13 +1,21 @@
 import classRecipe from "./classRecipe.js"
 import {recipes} from "./recipes.js"
 //--DOM
-const btnIngredients = document.getElementById("searchByIngredients")
+const btnIngredients = document.getElementById("btn_ingredients")
 const tagIngredients = document.getElementById("dropdownIngredients")
+const inputByIngredient = document.getElementById("search_input_by_ingredient")
+const showTagIngredient = document.getElementById("show_tag_ingredient")
+
 const searchInput = document.getElementById("search_input")
-const tagContainers = document.querySelectorAll("tag_container")
+const tagContainers = document.querySelectorAll(".tag_container")
 const errorText = document.getElementById("error")
 const recipeContainer = document.getElementById("recipe_wrapper")
 const resultSearch = document.getElementById("result_search")
+const dropdownIngredients = document.getElementById("dropdownIngredients")
+const dropdownAppareils = document.getElementById("dropdownAppareils")
+const parentIngredient = dropdownIngredients.parentElement
+const parentAppareils = dropdownAppareils.parentElement
+const parentUtensiles = dropdownUtensiles.parentElement
 
 
 
@@ -18,6 +26,7 @@ let arrAppareils =[]
 let ustensiles = []
 let arrUtensiles =[]
 let valid = false
+let selectedTag =""
 
 //--get all Ingredients, Appareils, Ustensiles
 recipes.forEach(recipe =>{
@@ -43,21 +52,67 @@ console.log(ustensiles)
 
 
 
+tagContainers.forEach(tagContainer =>{
+    tagContainer.addEventListener('click', (e) =>{
+
+        e.preventDefault()
+        tagContainer.classList.toggle("active")
+
+
+        //--show all the Ingredients
+        if((tagContainer.classList.contains("active") && 
+            tagContainer.classList.contains("blue"))){
+                //show the li list of ingredients
+                parentIngredient.classList.remove("hidden")
+                dropdownIngredients.innerHTML = renderTags(ingredients)
+
+                //--get data when click the ingredient
+            dropdownIngredients.addEventListener('click',(e)=>{
+            e.preventDefault
+            console.log(e.target)
+            selectedTag = e.target.innerHTML
+            selectedTag = selectedTag.trim()
+            console.log(selectedTag)
+            //--show selected tag in span above the dorpdownmenu
+            showTagIngredient.innerHTML = selectedTag
+            showTagIngredient.classList.remove('hidden')
+            showTagIngredient.classList.add('show_tag')
+            showTagIngredient.classList.add('blue')
+            console.log(showTagIngredient)
+        })
+
+                }else {
+            parentIngredient.classList.add ("hidden")
+        } 
+        
+        //--show all the Ingredients
+        if((tagContainer.classList.contains("active") && 
+            tagContainer.classList.contains("green"))){
+                //show the li list of ingredients
+                parentAppareils.classList.remove("hidden")
+                dropdownAppareils.innerHTML = renderTags(appareils)
+        }else {
+            parentAppareils.classList.add ("hidden")
+        } 
+        
+         if(tagContainer.classList.contains("active" && 
+        tagContainer.classList.contains("red"))){
+            return 2
+        }else{
+            return 3
+        }
+    })
+})
+
+/*--
 btnIngredients.addEventListener('click', ()=>{
     let selectedTag
     let parent = tagIngredients.parentElement
-    const showTag = btnIngredients.previousElementSibling
     // Toggle class of "active"
     btnIngredients.classList.toggle("active")
-    //let tempInput = document.createElement("input")
-    //tempInput.setAttribute("type","text")
-    //tempInput.setAttribute("placeholder","Rechercher un ingédient")
-    //tempInput.classList.add("temp_input")
-
 
     if(btnIngredients.classList.contains("active")){
         //btnIngredients.insertAdjacentElement("beforebegin",tempInput)
-
         parent.classList.remove("hidden")
         tagIngredients.innerHTML = `  
         ${ingredients.map(function(ingredient){
@@ -74,24 +129,58 @@ btnIngredients.addEventListener('click', ()=>{
             selectedTag = selectedTag.trim()
             console.log(selectedTag)
             //--show selected tag in span above the dorpdownmenu
-            showTag.innerHTML = selectedTag
-            showTag.classList.add('show')
-            console.log(showTag)
-        })
-    } else{
+            showTagIngredient.innerHTML = selectedTag
+            showTagIngredient.classList.remove('hidden')
+            showTagIngredient.classList.add('show_tag')
+            showTagIngredient.classList.add('blue')
+            console.log(showTagIngredient)
+            })
+        }else{
         parent.classList.add("hidden")
-        showTag.classList.remove('show')       
-        showTag.innerHTML =""
-    }
-})
-//----------------------------------------------------------------------------
-//--initial all RECIPE_WRAPPER SECTION
-//----------------------------------------------------------------------------
+        }
 
+    showTagIngredient.addEventListener('click', ()=>{
+        close()
+    })
+})
+--*/
+function close(){
+        showTagIngredient.classList.remove('show_tag')
+        showTagIngredient.classList.add('hidden')
+}
+
+function renderTags(category){
+    let createTag = ` ${category.map(function(item){
+        return `<li class="curser tag_ingredient" 
+                    data-${item}="${item}">
+                    ${item}
+                </li>`
+    }).join('')}
+    `  
+    return createTag
+}
+function renderEventTag(category){
+    category.addEventListener('click',(e)=>{
+        e.preventDefault
+        console.log(e.target)
+        selectedTag = e.target.innerHTML
+        selectedTag = selectedTag.trim()
+        console.log(selectedTag)
+        //--show selected tag in span above the dorpdownmenu
+        showTagIngredient.innerHTML = selectedTag
+        showTagIngredient.classList.remove('hidden')
+        showTagIngredient.classList.add('show_tag')
+        showTagIngredient.classList.add('blue')
+        console.log(showTagIngredient)
+})
+}
+
+//----------------------------------------------------------------------------
+//--initial all RECIPE_WRAPPER SECTION- show all recipes once page loaded by calling funtion renderRecipe() 
+//----------------------------------------------------------------------------
 renderRecipe(recipes)
 
-
-//--FUNCTION renderRecipe
+//--FUNCTION renderRecipe to create HTML for each recipe block and show in the page
 function renderRecipe(arrRecipe){
     arrRecipe.map(function(recipe){
         let showRecipe = new classRecipe(
@@ -104,13 +193,12 @@ function renderRecipe(arrRecipe){
         recipe.ustensils,
     )
     showRecipe.createRecipe()
-    //showRecipe.concatenateString()
 }).join("")
 
 }
 
 //----------------------------------------------------------------------------
-//--SEARCH INPUT-DOM
+//--SEARCH INPUT-DOM -- user insert eh search keyword in the searchbar
 //----------------------------------------------------------------------------
 searchInput.addEventListener("keyup", (e)=>{
     e.preventDefault
@@ -152,14 +240,14 @@ searchInput.addEventListener("keyup", (e)=>{
         }
 
         if(foundArray.length > 0){
-        recipeContainer.innerHTML =""
-        renderRecipe(foundArray)
-    }else{
-        recipeContainer.innerText= "Aucune recette ne correspond à votre critère...vous puvez chercher 'tarte aux pommes', 'poisson'. etc"
+            recipeContainer.innerHTML =""
+            // call function renderRecipe to create HTML for each founded recipes
+            renderRecipe(foundArray)
+        }else{
+            // show no found result
+            recipeContainer.innerText= "Aucune recette ne correspond à votre critère...vous puvez chercher 'tarte aux pommes', 'poisson'. etc"
+        }
     }
-
-    }
-
 })
 
 
