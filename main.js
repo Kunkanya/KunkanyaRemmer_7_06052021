@@ -2,9 +2,9 @@ import classRecipe from "./classRecipe.js"
 import {recipes} from "./recipes.js"
 //--DOM
 const btnIngredients = document.getElementById("btn_ingredients")
-const tagIngredients = document.getElementById("dropdownIngredients")
 const inputByIngredient = document.getElementById("search_input_by_ingredient")
 const showTagIngredient = document.getElementById("show_tag_ingredient")
+
 
 const searchInput = document.getElementById("search_input")
 const tagContainers = document.querySelectorAll(".tag_container")
@@ -28,7 +28,37 @@ let arrUtensiles =[]
 let valid = false
 let selectedTag =""
 
+
 //--get all Ingredients, Appareils, Ustensiles
+/************************************************************************* */
+/************************************************************************* */
+/************************************************************************* */
+/*****************check array filterIngredienst******************************************************** */
+/************************************************************************* */
+/************************************************************************* */
+/************************************************************************* */
+function filterIngredienst(arr){
+    debugger
+    arr.forEach(recipe =>{
+        recipe.ingredients.forEach(ingredient =>{
+            arrIngredients = []
+            arrIngredients.push(ingredient.ingredient)
+            //--filter duplicate ingredients
+            console.log(arrIngredients)
+            ingredients = [...new Set(arrIngredients)].sort()
+            })
+        })
+}
+/************************************************************************* */
+/************************************************************************* */
+/************************************************************************* */
+/************************************************************************* */
+/************************************************************************* */
+/************************************************************************* */
+/************************************************************************* */
+/************************************************************************* */
+/************************************************************************* */
+
 recipes.forEach(recipe =>{
     recipe.ingredients.forEach(ingredient =>{
         arrIngredients.push(ingredient.ingredient)
@@ -51,37 +81,20 @@ console.log(appareils)
 console.log(ustensiles)
 
 
-
 tagContainers.forEach(tagContainer =>{
     tagContainer.addEventListener('click', (e) =>{
 
         e.preventDefault()
         tagContainer.classList.toggle("active")
 
-
         //--show all the Ingredients
         if((tagContainer.classList.contains("active") && 
             tagContainer.classList.contains("blue"))){
                 //show the li list of ingredients
                 parentIngredient.classList.remove("hidden")
+                inputByIngredient.classList.remove("hidden")
                 dropdownIngredients.innerHTML = renderTags(ingredients)
-
-                //--get data when click the ingredient
-            dropdownIngredients.addEventListener('click',(e)=>{
-            e.preventDefault
-            console.log(e.target)
-            selectedTag = e.target.innerHTML
-            selectedTag = selectedTag.trim()
-            console.log(selectedTag)
-            //--show selected tag in span above the dorpdownmenu
-            showTagIngredient.innerHTML = selectedTag
-            showTagIngredient.classList.remove('hidden')
-            showTagIngredient.classList.add('show_tag')
-            showTagIngredient.classList.add('blue')
-            console.log(showTagIngredient)
-        })
-
-                }else {
+        } else {
             parentIngredient.classList.add ("hidden")
         } 
         
@@ -104,46 +117,28 @@ tagContainers.forEach(tagContainer =>{
     })
 })
 
-/*--
-btnIngredients.addEventListener('click', ()=>{
-    let selectedTag
-    let parent = tagIngredients.parentElement
-    // Toggle class of "active"
-    btnIngredients.classList.toggle("active")
 
-    if(btnIngredients.classList.contains("active")){
-        //btnIngredients.insertAdjacentElement("beforebegin",tempInput)
-        parent.classList.remove("hidden")
-        tagIngredients.innerHTML = `  
-        ${ingredients.map(function(ingredient){
-            return `<li class="curser tag_ingredient" 
-                        data-ingredient="${ingredient}">
-                        ${ingredient}
-                    </li>`
-        }).join('')}
-        `  
-        //--get data when click the ingredient
-        tagIngredients.addEventListener('click',(e)=>{
-            e.preventDefault
-            selectedTag = e.target.innerHTML
-            selectedTag = selectedTag.trim()
-            console.log(selectedTag)
-            //--show selected tag in span above the dorpdownmenu
-            showTagIngredient.innerHTML = selectedTag
-            showTagIngredient.classList.remove('hidden')
-            showTagIngredient.classList.add('show_tag')
-            showTagIngredient.classList.add('blue')
-            console.log(showTagIngredient)
-            })
-        }else{
-        parent.classList.add("hidden")
-        }
+/*----------------------------------------*/
+/*---------EVENTLISTENER SECTION--------- */
+/*----------------------------------------*/
 
-    showTagIngredient.addEventListener('click', ()=>{
+/*-- addEventlistener to each Li tag--*/
+dropdownIngredients.addEventListener('click',(e)=>{
+    selectedTag = e.target.innerHTML
+    selectedTag = selectedTag.trim()
+    console.log(selectedTag)
+    //--show selected tag in span above the dorpdownmenu
+    showTagIngredient.innerHTML = selectedTag
+    showTagIngredient.classList.remove('hidden')
+    showTagIngredient.classList.add('show_tag')
+    showTagIngredient.classList.add('blue')
+    })
+
+showTagIngredient.addEventListener('click', ()=>{
         close()
     })
-})
---*/
+
+//function close selectedtag
 function close(){
         showTagIngredient.classList.remove('show_tag')
         showTagIngredient.classList.add('hidden')
@@ -159,6 +154,8 @@ function renderTags(category){
     `  
     return createTag
 }
+
+
 function renderEventTag(category){
     category.addEventListener('click',(e)=>{
         e.preventDefault
@@ -229,17 +226,19 @@ searchInput.addEventListener("keyup", (e)=>{
         tempRecipe = tempRecipe.toLowerCase()
         tempRecipe = tempRecipe.trim()
 
-        console.log(tempRecipe)
+//        console.log(tempRecipe)
         
         let foundItem = tempRecipe.includes(searchWord)
         if(foundItem === true) {
-            let founDIndex = i
+            let foundIndex = i
+            console.log("foundItem= " + foundItem)
             resultSearch.innerHTML =""
-            console.log (tempRecipe + " has index of " + founDIndex)
             foundArray.push(recipes[i])
+            filterIngredienst(foundArray)
         }
 
         if(foundArray.length > 0){
+//            dropdownIngredients.innerHTML = renderTags(foundArray.ingredient)            
             recipeContainer.innerHTML =""
             // call function renderRecipe to create HTML for each founded recipes
             renderRecipe(foundArray)

@@ -123,10 +123,12 @@ header{
 
 .input_tag{
   border:none;
-  background-color: var(--color_tertiary);
+  background-color: cadetblue;
   color:white;
-  width:90%;
+  width:80%;
+  height: 50px;
   font-size: 0.9em;
+  position: absolute;
 }
 
 input[type="text"].tag ::-webkit-input-placeholder{
