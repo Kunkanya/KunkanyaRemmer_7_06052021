@@ -3,12 +3,13 @@ import {recipes} from "./recipes.js"
 //--DOM
 const btnIngredients = document.getElementById("btn_ingredients")
 const inputByIngredient = document.getElementById("search_input_by_ingredient")
-const showTag = document.getElementById("show_tag")
+const showTags = document.getElementById("show_tag")
+const selectedTags = document.querySelectorAll(".selected_tag")
 
 
 const searchInput = document.getElementById("search_input")
 const tagContainers = document.querySelectorAll(".tag_container")
-const tagContents = document.querySelectorAll(".tag")
+const tagLi = document.querySelectorAll(".tag")
 
 const errorText = document.getElementById("error")
 const recipeContainer = document.getElementById("recipe_wrapper")
@@ -74,8 +75,8 @@ function filterUstensils(arr){
 };
 
 function close(){
-        showTag.classList.remove('show_tag')
-        showTag.classList.add('hidden')
+        showTags.classList.remove('show_tag')
+        showTags.classList.add('hidden')
 };
 
 function renderTags(category){
@@ -209,32 +210,38 @@ searchInput.addEventListener("keyup", (e)=>{
 /*--3. EVENTLISTENER SECTION--------- */
 /*----------------------------------------*/
 
-/*-- addEventlistener to each Li tag--*/
+/*-- addEventlistener to each Li tag--
 dropdownIngredients.addEventListener('click',(e)=>{
     selectedTag = e.target.innerHTML
     selectedTag = selectedTag.trim()
     console.log(selectedTag)
     //--show selected tag in span above the dorpdownmenu
-    showTag.innerHTML += `<p class="selected_tag blue">${selectedTag}</p>`
-    showTag.classList.remove('hidden')
+    showTags.innerHTML += `<p class="selected_tag curser">${selectedTag}</p>`
+    showTags.classList.remove('hidden')
     //showTagIngredient.classList.add('show_tag')
     //showTagIngredient.classList.add('blue')
     })
-
-    showTag.addEventListener('click', ()=>{
-        close()
-    })
-
+*/
 /************************************************************************* */
 /************************************************************************* */
-tagContents.forEach(tag =>{
-    tag.addEventListener('click', (e) =>{
-      e.preventDefault()
-        selectedTag = e.target.value
+/************************************************************************* */
+/*****to do : close selected tags***************************************** */
+/************************************************************************* */
+/************************************************************************* */
+
+/************************************************************************* */
+selectedTags.forEach(selectedTag =>{
+    debugger
+    selectedTag.addEventListener('click', (e)=>{
+        e.preventDefault()
         console.log(selectedTag)
     })
 })
 
+/************************************************************************* */
+/************************************************************************* */
+/************************************************************************* */
+/************************************************************************* */
 /************************************************************************* */
 /************************************************************************* */
 
@@ -242,18 +249,29 @@ tagContents.forEach(tag =>{
 
 tagContainers.forEach(tagContainer =>{
     tagContainer.addEventListener('click', (e) =>{
-
         e.preventDefault()
         tagContainer.classList.toggle("active")
-        //--show all the Ingredients
+//--show all the Ingredients
         if((tagContainer.classList.contains("active") && 
             tagContainer.classList.contains("blue"))){
                 //show the li list of ingredients
                 parentIngredient.classList.remove("hidden")
                 //inputByIngredient.classList.remove("hidden")
-               dropdownIngredients.innerHTML = renderTags(ingredients)
-        } else {
+                dropdownIngredients.innerHTML = renderTags(ingredients)
+                dropdownIngredients.addEventListener('click', (e)=>{
+                    debugger
+                    e.preventDefault()
+                    console.log(e.target.innerHTML)
+                    let selectedTagIngredient = e.target.innerHTML
+                        var p = document.createElement('p')
+                        var pText = document.createTextNode(selectedTagIngredient)
+                        p.appendChild(pText)
+                        showTags.appendChild(p)
+//                    showTags.innerHTML = `<p class="blue selected_tag curser">${selectedTagIngredient}</p>`
+                })
+            } else {
             parentIngredient.classList.add ("hidden")
+            
         } 
         
         //--show all the appareils
@@ -278,4 +296,9 @@ tagContainers.forEach(tagContainer =>{
     })
 });
 
+function close2() {
+    window.setTimeout(() => {
+      dropdownIngredients.remove(dropdownIngredients);
+    });
+  }
 
