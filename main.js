@@ -34,7 +34,8 @@ let ustensils = []
 let arrUstensils =[]
 let valid = false
 let selectedTag =""
-let foundArray =[]
+var foundArray =[]
+var foundArrayTemp = []
 
 
 /************************************************************************* */
@@ -70,7 +71,6 @@ function filterUstensils(arr){
             ustensils = [...new Set(arrUstensils)].sort()
         })
     })
-    console.log(ustensils)
     return ustensils            
 };
 
@@ -134,9 +134,7 @@ function inputValidation(value){
     }
 };
 
-/*--funciton search--*/
 function search(arr, value){
-    foundArray=[]
     //--2. set each recipeto one string and set to lowercase
     for(let i= 0; i < arr.length; i++){
         function listIngredient(){
@@ -153,21 +151,20 @@ function search(arr, value){
             })
             return y
         }
-        let tempRecipe = arr[i].name + "," +
-                         listIngredient() + arr[i].appareils + listUstensils()
+        let tempRecipe = arr[i].name + " , " +
+                         listIngredient() + " , " + 
+                         arr[i].appareils + " , " + 
+                         listUstensils()
                             
         tempRecipe = tempRecipe.toLowerCase()
         tempRecipe = tempRecipe.trim()
-
-       //console.log(tempRecipe)
-        console.log(listUstensils)
+        console.log(tempRecipe)
         let foundItem = tempRecipe.includes(value)
         if(foundItem === true) {
             resultSearch.innerHTML =""
-            foundArray.push(arr[i])
+            foundArray.push(arr[i])      
         }
-        if(foundArray.length > 0){
-          //  console.log(foundArray)
+        if(foundArray.length || foundArrayTemp.length > 0){
             recipeContainer.innerHTML =""
             // call function renderRecipe to create HTML for each founded recipes
             filterIngredienst(foundArray)
@@ -179,6 +176,9 @@ function search(arr, value){
             recipeContainer.innerText= "Aucune recette ne correspond à votre critère...vous puvez chercher 'tarte aux pommes', 'poisson'. etc"
         }
     }
+    foundArrayTemp = foundArray
+    foundArray = []
+    return foundArrayTemp
 };
 //----------------------------------------------------------------------------
 //--1. Initial all RECIPE_WRAPPER SECTION- show all recipes once page loaded by calling funtion renderRecipe() 
@@ -203,50 +203,12 @@ searchInput.addEventListener("keyup", (e)=>{
         return
     }
     //-- 2. Call function search and give the array which need to be searched with searchWord
-    search(recipes, searchWord)
+       search(recipes, searchWord)
 })
 
+/*------3. EVENTLISTENER SECTION--------- */
 /*----------------------------------------*/
-/*--3. EVENTLISTENER SECTION--------- */
-/*----------------------------------------*/
-
-/*-- addEventlistener to each Li tag--
-dropdownIngredients.addEventListener('click',(e)=>{
-    selectedTag = e.target.innerHTML
-    selectedTag = selectedTag.trim()
-    console.log(selectedTag)
-    //--show selected tag in span above the dorpdownmenu
-    showTags.innerHTML += `<p class="selected_tag curser">${selectedTag}</p>`
-    showTags.classList.remove('hidden')
-    //showTagIngredient.classList.add('show_tag')
-    //showTagIngredient.classList.add('blue')
-    })
-*/
-/************************************************************************* */
-/************************************************************************* */
-/************************************************************************* */
-/*****to do : close selected tags***************************************** */
-/************************************************************************* */
-/************************************************************************* */
-
-/************************************************************************* */
-selectedTags.forEach(selectedTag =>{
-    debugger
-    selectedTag.addEventListener('click', (e)=>{
-        e.preventDefault()
-        console.log(selectedTag)
-    })
-})
-
-/************************************************************************* */
-/************************************************************************* */
-/************************************************************************* */
-/************************************************************************* */
-/************************************************************************* */
-/************************************************************************* */
-
-
-
+/*--AddEventlistner for each button Ingredients, appareils and Ustensiles--*/
 tagContainers.forEach(tagContainer =>{
     tagContainer.addEventListener('click', (e) =>{
         e.preventDefault()
@@ -258,17 +220,48 @@ tagContainers.forEach(tagContainer =>{
                 parentIngredient.classList.remove("hidden")
                 //inputByIngredient.classList.remove("hidden")
                 dropdownIngredients.innerHTML = renderTags(ingredients)
-                dropdownIngredients.addEventListener('click', (e)=>{
-                    debugger
-                    e.preventDefault()
-                    console.log(e.target.innerHTML)
-                    let selectedTagIngredient = e.target.innerHTML
-                        var p = document.createElement('p')
-                        var pText = document.createTextNode(selectedTagIngredient)
-                        p.appendChild(pText)
-                        showTags.appendChild(p)
-//                    showTags.innerHTML = `<p class="blue selected_tag curser">${selectedTagIngredient}</p>`
+                //--add Eventlistener to each LiTag in dropdown to show under the search input
+                const tagLis = document.querySelectorAll(".tag")
+                tagLis.forEach(tag =>{
+                    tag.addEventListener('click', (e)=>{
+                        e.preventDefault()
+                        let selectedTagIngredient = e.target.innerHTML
+                            var p = document.createElement('p')
+                            var pText = document.createTextNode(selectedTagIngredient)
+                            p.appendChild(pText)
+                            p.classList.add("selected_tag")
+                            p.classList.add("blue")
+                            showTags.appendChild(p) 
+                        //--search trough foundarrayTemp
+                            if(!foundArrayTemp === [] || !foundArray === []){
+                            search(foundArrayTemp,selectedTagIngredient.toLowerCase())
+                                //--ADD EventListener to each selected_tag to close
+                            }else{
+                                search(recipes,selectedTagIngredient.toLowerCase())
+                            }
+/*+++++++++++++++++++++++++++++++++++++++++++++++++check
+/*+++++++++++++++++++++++++++++++++++++++++++++++++check
+/*+++++++++++++++++++++++++++++++++++++++++++++++++check
+/*+++++++++++++++++++++++++++++++++++++++++++++++++check
+/*+++++++++++++++++++++++++++++++++++++++++++++++++check
+/*+++++++++++++++++++++++++++++++++++++++++++++++++check
+/*+++++++++++++++++++++++++++++++++++++++++++++++++check
+                     const selectedTags = document.querySelectorAll(".selected_tag")
+                     selectedTags.forEach(selectedTag =>{
+                         selectedTag.addEventListener('click', (el) =>{
+                            removeElement(el)
+                         })
+                        })
+/*+++++++++++++++++++++++++++++++++++++++++++++++++check
+/*+++++++++++++++++++++++++++++++++++++++++++++++++check
+/*+++++++++++++++++++++++++++++++++++++++++++++++++check
+/*+++++++++++++++++++++++++++++++++++++++++++++++++check*/
+
+
+                        })
+
                 })
+                
             } else {
             parentIngredient.classList.add ("hidden")
             
@@ -280,7 +273,7 @@ tagContainers.forEach(tagContainer =>{
                 //show the li list of appatrils
                 parentAppareils.classList.remove("hidden")
                 dropdownAppareils.innerHTML = renderTags(appareils)
-        }else {
+            }else {
             parentAppareils.classList.add ("hidden")
         } 
         
@@ -296,9 +289,43 @@ tagContainers.forEach(tagContainer =>{
     })
 });
 
-function close2() {
-    window.setTimeout(() => {
-      dropdownIngredients.remove(dropdownIngredients);
-    });
-  }
+function removeElement(el) {
+     var element = el
+     element.remove()
+}
 
+  
+
+
+/*--funciton search--*/
+function search_option2(recipeArrays,value){
+    const foundArray =  recipeArrays.filter((recipeArray) => {
+        // get all the ingredients for each recipe for checking condition later
+        function listIngredient(){
+            let x = "" 
+            recipeArray.ingredients.forEach(ingredient=>{
+                x += ingredient.ingredient + ' '
+                })
+                console.log(x)
+            return x
+        }  
+        return recipeArray.name.toLowerCase().includes(value) ||
+        recipeArray.description.toLowerCase().includes(value) ||
+        listIngredient().includes(value)
+    })
+    console.log(foundArray)
+    if(foundArray.length > 0){
+        //  console.log(foundArray)
+          recipeContainer.innerHTML =""
+          // call function renderRecipe to create HTML for each founded recipes
+          filterIngredienst(foundArray)
+          filterAppareils(foundArray)
+          filterUstensils(foundArray)
+          renderRecipe(foundArray)
+          return foundArray
+        }else{
+          // show no found result
+          recipeContainer.innerText= "Aucune recette ne correspond à votre critère...vous puvez chercher 'tarte aux pommes', 'poisson'. etc"
+      }
+}
+/*----------------------------------------*/
