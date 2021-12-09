@@ -211,7 +211,7 @@ input[type="text"].tag ::-webkit-input-placeholder{
 }
 .recipe_container{
 /*  height: 365px; --- Actual size*/
-height: 700px;
+height: 500px;
   background-color: var(--color_secondary);
   border-radius: 5px;
   position: relative;

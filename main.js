@@ -4,7 +4,6 @@ import {recipes} from "./recipes.js"
 const btnIngredients = document.getElementById("btn_ingredients")
 const inputByIngredient = document.getElementById("search_input_by_ingredient")
 const showTags = document.getElementById("show_tag")
-const selectedTags = document.querySelectorAll(".selected_tag")
 
 
 const searchInput = document.getElementById("search_input")
@@ -45,7 +44,7 @@ function filterIngredienst(arr){
     arrIngredients=[]
     arr.forEach(recipe =>{
         recipe.ingredients.forEach(ingredient =>{
-            arrIngredients.push(ingredient.ingredient)
+            arrIngredients.push(ingredient.ingredient.toLowerCase())
             //--filter duplicate ingredients
             ingredients = [...new Set(arrIngredients)].sort()
             })
@@ -56,7 +55,7 @@ function filterIngredienst(arr){
 function filterAppareils(arr){
     arrAppareils=[]
     arr.forEach(recipe =>{
-            arrAppareils.push(recipe.appliance)
+            arrAppareils.push(recipe.appliance.toLowerCase())
             appareils =[...new Set(arrAppareils)].sort()
         })
     return appareils            
@@ -66,7 +65,7 @@ function filterUstensils(arr){
     arrUstensils=[]
     arr.forEach(recipe =>{
         recipe.ustensils.forEach(ustensil =>{
-            arrUstensils.push(ustensil)
+            arrUstensils.push(ustensil.toLowerCase())
             //--filter duplicate ingredients
             ustensils = [...new Set(arrUstensils)].sort()
         })
@@ -135,6 +134,7 @@ function inputValidation(value){
 };
 
 function search(arr, value){
+    foundArray = []
     //--2. set each recipeto one string and set to lowercase
     for(let i= 0; i < arr.length; i++){
         function listIngredient(){
@@ -151,14 +151,16 @@ function search(arr, value){
             })
             return y
         }
+        //-- put the name + all in redient + description in to one tempRecipe  for searching
         let tempRecipe = arr[i].name + " , " +
                          listIngredient() + " , " + 
-                         arr[i].appareils + " , " + 
+                         arr[i].description + " , " + 
+                         arr[i].appliance + " , " +
                          listUstensils()
                             
         tempRecipe = tempRecipe.toLowerCase()
         tempRecipe = tempRecipe.trim()
-        console.log(tempRecipe)
+        //console.log(tempRecipe)
         let foundItem = tempRecipe.includes(value)
         if(foundItem === true) {
             resultSearch.innerHTML =""
@@ -177,7 +179,7 @@ function search(arr, value){
         }
     }
     foundArrayTemp = foundArray
-    foundArray = []
+    //
     return foundArrayTemp
 };
 //----------------------------------------------------------------------------
@@ -213,6 +215,7 @@ tagContainers.forEach(tagContainer =>{
     tagContainer.addEventListener('click', (e) =>{
         e.preventDefault()
         tagContainer.classList.toggle("active")
+//*******************dropdown Ingredients****************************
 //--show all the Ingredients
         if((tagContainer.classList.contains("active") && 
             tagContainer.classList.contains("blue"))){
@@ -225,7 +228,10 @@ tagContainers.forEach(tagContainer =>{
                 tagLis.forEach(tag =>{
                     tag.addEventListener('click', (e)=>{
                         e.preventDefault()
-                        let selectedTagIngredient = e.target.innerHTML
+                        let selectedTagIngredient = e.target.innerHTML.toLowerCase()
+                        selectedTagIngredient = selectedTagIngredient.trim()
+
+                        console.log(selectedTagIngredient)
                             var p = document.createElement('p')
                             var pText = document.createTextNode(selectedTagIngredient)
                             p.appendChild(pText)
@@ -233,46 +239,70 @@ tagContainers.forEach(tagContainer =>{
                             p.classList.add("blue")
                             showTags.appendChild(p) 
                         //--search trough foundarrayTemp
-                            if(!foundArrayTemp === [] || !foundArray === []){
-                            search(foundArrayTemp,selectedTagIngredient.toLowerCase())
-                                //--ADD EventListener to each selected_tag to close
-                            }else{
-                                search(recipes,selectedTagIngredient.toLowerCase())
-                            }
-/*+++++++++++++++++++++++++++++++++++++++++++++++++check
-/*+++++++++++++++++++++++++++++++++++++++++++++++++check
-/*+++++++++++++++++++++++++++++++++++++++++++++++++check
-/*+++++++++++++++++++++++++++++++++++++++++++++++++check
-/*+++++++++++++++++++++++++++++++++++++++++++++++++check
-/*+++++++++++++++++++++++++++++++++++++++++++++++++check
-/*+++++++++++++++++++++++++++++++++++++++++++++++++check
-                     const selectedTags = document.querySelectorAll(".selected_tag")
-                     selectedTags.forEach(selectedTag =>{
-                         selectedTag.addEventListener('click', (el) =>{
-                            removeElement(el)
-                         })
+                        if(foundArrayTemp.length === 0){
+                            search(recipes,selectedTagIngredient)
+                            //--ADD EventListener to each selected_tag to close
+                        }else{
+                            search(foundArrayTemp,selectedTagIngredient)
+                        }
+                    
+                            //-- remove selected-tag ingredient 
+                            const selectedTags = document.querySelectorAll(".selected_tag")
+                            selectedTags.forEach(selectedTag =>{
+                                selectedTag.addEventListener('click', (el) =>{
+                                debugger
+                                el.target.remove(el.target)
+                            })
                         })
-/*+++++++++++++++++++++++++++++++++++++++++++++++++check
-/*+++++++++++++++++++++++++++++++++++++++++++++++++check
-/*+++++++++++++++++++++++++++++++++++++++++++++++++check
-/*+++++++++++++++++++++++++++++++++++++++++++++++++check*/
-
-
-                        })
-
+                    })
                 })
-                
             } else {
-            parentIngredient.classList.add ("hidden")
-            
+                parentIngredient.classList.add ("hidden")
         } 
+//*******************END dropdown Ingredients****************************
         
+//*******************Start dropdown Appareils****************************
         //--show all the appareils
         if((tagContainer.classList.contains("active") && 
             tagContainer.classList.contains("green"))){
                 //show the li list of appatrils
                 parentAppareils.classList.remove("hidden")
                 dropdownAppareils.innerHTML = renderTags(appareils)
+
+                //--add Eventlistener to each LiTag in dropdown to show under the search input
+                const tagLis = document.querySelectorAll(".tag")
+                tagLis.forEach(tag =>{
+                    tag.addEventListener('click', (e)=>{
+                        e.preventDefault()
+                        let selectedTagIngredient = e.target.innerHTML.toLowerCase()
+                        selectedTagIngredient = selectedTagIngredient.trim()
+
+                        console.log(selectedTagIngredient)
+                            var p = document.createElement('p')
+                            var pText = document.createTextNode(selectedTagIngredient)
+                            p.appendChild(pText)
+                            p.classList.add("selected_tag")
+                            p.classList.add("green")
+                            showTags.appendChild(p) 
+                        //--search trough foundarrayTemp
+                        debugger
+                        if(foundArrayTemp.length === 0){
+                            search(recipes,selectedTagIngredient)
+                            //--ADD EventListener to each selected_tag to close
+                        }else{
+                            search(foundArrayTemp,selectedTagIngredient)
+                        }
+                    
+                            //-- remove selected-tag ingredient 
+                            const selectedTags = document.querySelectorAll(".selected_tag")
+                            selectedTags.forEach(selectedTag =>{
+                                selectedTag.addEventListener('click', (el) =>{
+                                debugger
+                                el.target.remove(el.target)
+                            })
+                        })
+                    })
+                })
             }else {
             parentAppareils.classList.add ("hidden")
         } 
@@ -283,16 +313,47 @@ tagContainers.forEach(tagContainer =>{
                 //show the li list of ustensils
                 parentUstensils.classList.remove("hidden")
                 dropdownUstensils.innerHTML = renderTags(ustensils)
+                //--add Eventlistener to each LiTag in dropdown to show under the search input
+                const tagLis = document.querySelectorAll(".tag")
+                tagLis.forEach(tag =>{
+                    tag.addEventListener('click', (e)=>{
+                        e.preventDefault()
+                        let selectedTagIngredient = e.target.innerHTML.toLowerCase()
+                        selectedTagIngredient = selectedTagIngredient.trim()
+
+                        console.log(selectedTagIngredient)
+                            var p = document.createElement('p')
+                            var pText = document.createTextNode(selectedTagIngredient)
+                            p.appendChild(pText)
+                            p.classList.add("selected_tag")
+                            p.classList.add("red")
+                            showTags.appendChild(p) 
+                        //--search trough foundarrayTemp
+                        debugger
+                        if(foundArrayTemp.length === 0){
+                            search(recipes,selectedTagIngredient)
+                            //--ADD EventListener to each selected_tag to close
+                        }else{
+                            search(foundArrayTemp,selectedTagIngredient)
+                        }
+                    
+                            //-- remove selected-tag ingredient 
+                            const selectedTags = document.querySelectorAll(".selected_tag")
+                            selectedTags.forEach(selectedTag =>{
+                                selectedTag.addEventListener('click', (el) =>{
+                                debugger
+                                console.log(showTags.childElementCount)
+                                el.target.remove(el.target)
+                                reloadRecipe()
+                            })
+                        })
+                    })
+                })
         }else{
             parentUstensils.classList.add ("hidden")
         }
     })
 });
-
-function removeElement(el) {
-     var element = el
-     element.remove()
-}
 
   
 
@@ -329,3 +390,9 @@ function search_option2(recipeArrays,value){
       }
 }
 /*----------------------------------------*/
+
+function reloadRecipe(){
+    if (showTags.childElementCount === 0){
+        location.reload()
+    } 
+}
