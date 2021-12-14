@@ -82,8 +82,8 @@ header{
 .tag_wrapper{
   display: flex;
   flex-direction: row;
-
 }
+
 .tag_container{
   display: flex;
   flex-direction: row;
@@ -102,7 +102,10 @@ header{
   width: 600px;
 }
 
-.active > .fa-angle-down{
+.fa-angle-down{
+  padding: 20px;
+}
+.active > .fa-angle-down1{
   animation : arrow_rotate 0.5s forwards ease-in;
 }
 
@@ -110,7 +113,13 @@ header{
   100% {transform: rotate(180deg);}
   
 }
+.open{
+  animation : arrow_rotate 0.5s forwards ease-in;
+}
 
+.close{
+  animation : arrow_rotate 1s  ease-out;
+}
 #selected_ingredient{
   width: 170px;
   height: auto-fit;
@@ -123,20 +132,22 @@ header{
 
 .input_tag{
   border:none;
-  background-color: cadetblue;
+  background-color: var(--color_tertiary);
   color:white;
   width:80%;
   height: 50px;
-  font-size: 0.9em;
+  font-size: 0.8em;
+  border: pink;
   position: absolute;
+  top:0;
+  outline:none;
 }
 
-input[type="text"].tag ::-webkit-input-placeholder{
-  color: white;
+input[type="search"].tag ::-webkit-input-placeholder{
+  color: red;
 }
 .dropdown_container{
   width: 600px;
-  height: fit-content;
   position:absolute;
   top: 60px;
   left:0;
@@ -145,11 +156,10 @@ input[type="text"].tag ::-webkit-input-placeholder{
   z-index: 3 ;
   overflow-y: scroll;
 }
-#dropdownIngredients{
-  height: 200px;
-}
+
 .tag_contents{
   display: grid;
+  height: fit-content;
   grid-template-columns: repeat(3,1fr);
   grid-template-rows: auto;
   font-size: 0.7em;

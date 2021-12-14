@@ -23,7 +23,7 @@
         <small id="error" class="hidden">p</small>
         <input class="tag"
             id="search_input"
-            type="text" 
+            type="search" 
             placeholder="Rechercher un ingrédient, appareil, ustensiles ou une recette">
         <i class="fas fa-search"></i>
     </form>
@@ -36,17 +36,18 @@
 <div class="tag_wrapper">
     <!--Ordered by ingrediensts-->
     <div id="btn_ingredients" class="tag_container blue curser"  >    
-    <input  id="search_input_by_ingredient" 
-                type="text" 
+        <form>
+        <input  id="search_input_by_ingredient" 
+                type="search" 
                 class="hidden input_tag" 
-                placeholder="Recherche un ingédient">
+                placeholder="Recherche un ingrédient">
+        </form>
         <p>Ingredients</p>
         <i class="fas fa-angle-down"></i>
         <div class="dropdown_container hidden" >
-            <ul  class="tag_contents" id="dropdownIngredients">
-        </ul>
+            <ul  class="tag_contents" id="dropdownIngredients"></ul>
+        </div>
     </div>
-</div>
     <!--Ordered by appareils-->
     <div id="show_tag_appareil"></div>
     <div class="tag_container green curser" id="searchByAppareils" >
@@ -69,6 +70,8 @@
         </div>
     </div>
 </div>
+
+
 
 <div id="recipe_wrapper">
 
