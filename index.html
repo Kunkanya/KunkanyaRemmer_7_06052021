@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -18,7 +19,7 @@
 
 <!--Search bar section-->
 <section id="search">
-    <form class="form_container curser" action="">
+    <form class="form_container curser">
         <div id="result_search"></div>
         <small id="error" class="hidden">p</small>
         <input class="tag"
@@ -31,11 +32,13 @@
 
 <!--Dropdown search each category-->
 <main>
+    <!--show selected tags area-->
     <div id="show_tag" class="hidden"></div>
 
-<div class="tag_wrapper">
+
+    <div class="tag_wrapper">
     <!--Ordered by ingrediensts-->
-    <div id="btn_ingredients" class="tag_container blue curser"  >    
+    <div id="btn_ingredients" class="tag_container blue curser">    
         <form>
         <input  id="search_input_by_ingredient" 
                 type="search" 
@@ -53,9 +56,8 @@
     <div class="tag_container green curser" id="searchByAppareils" >
         <p>Appareils</p>
         <i class="fas fa-angle-down"></i>
-        <div class="dropdown_container hidden " >
-            <ul  class="tag_contents" id="dropdownAppareils">
-            </ul>
+        <div class="dropdown_container hidden" >
+            <ul  class="tag_contents" id="dropdownAppareils"></ul>
         </div>
     </div>
     
