@@ -45,7 +45,7 @@ console.log(ustensiles)
 //})
 
 
-
+/*
 btnIngredients.addEventListener('click', ()=>{
     let selectedTag
     let parent = tagIngredients.parentElement
@@ -87,6 +87,7 @@ btnIngredients.addEventListener('click', ()=>{
         showTag.innerHTML =""
     }
 })
+*/
 //----------------------------------------------------------------------------
 //--initial all RECIPE_WRAPPER SECTION
 //----------------------------------------------------------------------------

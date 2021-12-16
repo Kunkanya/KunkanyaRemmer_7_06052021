@@ -30,32 +30,38 @@
 
 <!--Dropdown search each category-->
 <main>
-<div class="tag_wrapper">
+    <div class="show_selected_tag"></div>
+
+
+<div class="dropdown">
     <!--Ordered by ingrediensts-->
     <!--<span id="selected_ingredient"><i class="far fa-times-circle"></i></span> -->
-    <div class="tag_container curser" id="searchByIngredients" >
+    <div class="tag_container curser" id="searchByIngredients" data-dropdown >
         <input type="text" class="hidden" placeholder="Recherche un ingédient">
-        <p>Ingredients</p>
         <i class="fas fa-angle-down"></i>
-        <div class="dropdown_container hidden" >
-            <ul  class="tag_contents" id="dropdownIngredients">
-            </ul>
-        </div>
+        <button class="link">Ingredients</button>
+        <ul  class="tag_contents" data-ingredients data-dropdown-menu>
+                <li>ass</li>
+                <li>ass</li>
+                <li>ass</li>
+                <li>ass</li>
+                <li>ass</li>
+        </ul>
     </div>
     <!--Ordered by appareils-->
-    <span></span>
-    <div class="tag_container curser" id="searchByAppareils" >
+    <div class="tag_container curser" id="searchByAppareils" data-dropdown-menu >
         <p>Appareils</p>
         <i class="fas fa-angle-down"></i>
     </div>
     
     <!--Ordered by ustensiles-->
-    <span></span>
     <div class="tag_container curser" id="searchByUstensiles" >
         <p>Ustensiles</p>
         <i class="fas fa-angle-down"></i>
     </div>
 </div>
+
+
 
 <div id="recipe_wrapper">
 
@@ -64,6 +70,15 @@
 </div>
 
 
+<div class="dropdown">
+    <button>Ingredient</button>
+    <ul class="test">
+        <li>skdsö</li>
+        <li>skdsö</li>
+        <li>skdsö</li>
+        <li>skdsö</li>
+    </ul>
+</div>
 
 </main>
 <!--Script javascript and bootstrap-->
