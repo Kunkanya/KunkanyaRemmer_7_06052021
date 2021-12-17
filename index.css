@@ -8,6 +8,8 @@
     --color_cinq:#ED6454;
 }
 
+
+
 *,
 *::before,
 *::after {
@@ -31,6 +33,7 @@ ul {
 .hidden{
   display:none; 
 }
+
 
 .show{
   display: block;
@@ -94,9 +97,11 @@ header{
   width: 170px;
   height: 70px;
   border-radius:  5px;
+  border: none;
   font-size: 1.3em;
   color: white;
   margin-right:  3em;
+  overflow: hidden;
 }
 .active{
   width: 600px;
@@ -134,7 +139,7 @@ header{
   border:none;
   background-color: var(--color_tertiary);
   color:white;
-  width:80%;
+  width:600px;
   height: 50px;
   font-size: 0.8em;
   border: pink;
@@ -143,28 +148,36 @@ header{
   outline:none;
 }
 
-input[type="search"].tag ::-webkit-input-placeholder{
-  color: red;
-}
-.dropdown_container{
-  width: 600px;
-  position:absolute;
-  top: 60px;
-  left:0;
-  border-radius: 5px;
-  padding: 1em;
-  z-index: 3 ;
-  overflow-y: scroll;
-}
-
+/*Ul tag lists*/
 .tag_contents{
+  border-radius: 0 0 5px 5px;
+  color: white;
+  padding: 1em;
+  width: 600px;
+  top: 65px;
+  position : absolute;
   display: grid;
   height: fit-content;
   grid-template-columns: repeat(3,1fr);
   grid-template-rows: auto;
   font-size: 0.7em;
+  z-index: 3;
+  pointer-events: none;
+  overflow-y: scroll; 
+  opacity: 0;
 }
 
+/*once UL list in active state*/
+.ul_active{
+  opacity: 1;
+  height: 300px;
+  overflow-y: scroll;
+  pointer-events: all;
+}
+
+.ul_active li:hover{
+  color : black;
+}
 
 .temp_input{
   position: relative;
@@ -181,21 +194,27 @@ input[type="search"].tag ::-webkit-input-placeholder{
   padding :0.5em;
   border-radius: 5px;
   color: white;
-  border: red solid 1px
 }
 
 .selected_tag::after{
   content: "\f057";
   font-family: "Font Awesome 5 free";
   padding: 0 0.5em;
-
 }
-#btn_ingredients, 
-#btn_Ingredients > .dropdown_container, 
+
+.button_section{
+  position : relative;
+}
+
+
+#btn_Ingredients + .tag_contents ul, 
 #selected_ingredient ,
+[data-button="ingredients"],
 .blue{
   background-color: var(--color_tertiary);
 }
+
+
 #searchByAppareils,
 #searchByAppareils > .dropdown_container,
 .green{
@@ -207,10 +226,11 @@ input[type="search"].tag ::-webkit-input-placeholder{
     background-color: var(--color_cinq);
 }
 
+body{
+}
+
 /*--RECIPE SECTION*/
 #recipe_wrapper{
-  border: red 2px solid;
-
   display: grid;
   grid-template-columns: repeat(3, auto);
   column-gap: 2em;
@@ -218,10 +238,12 @@ input[type="search"].tag ::-webkit-input-placeholder{
   row-gap: 2em;
   justify-self: center;
   margin-top: 5em;
+  height: 500px;
+  overflow-y: scroll;
 }
 .recipe_container{
 /*  height: 365px; --- Actual size*/
-height: 500px;
+  height: 400px;
   background-color: var(--color_secondary);
   border-radius: 5px;
   position: relative;
@@ -230,7 +252,7 @@ height: 500px;
   position:absolute;
   bottom: 0;
   /* height: 180px;--- Actual size */
-  height: 400px;
+  height: 300px;
 
   background-color: lightgray;
   border-radius:  0 0 5px 5px;
@@ -270,3 +292,4 @@ height: 500px;
   -webkit-line-clamp: 8 ;
   -webkit-box-orient: vertical;
 }
+

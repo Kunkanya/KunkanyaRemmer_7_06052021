@@ -37,49 +37,38 @@
 
 
     <div class="tag_wrapper">
-    <!--Ordered by ingrediensts-->
-    <div id="btn_ingredients" class="tag_container blue curser">    
-        <form>
-        <input  id="search_input_by_ingredient" 
-                type="search" 
-                class="hidden input_tag" 
-                placeholder="Recherche un ingrédient">
-        </form>
-        <p>Ingredients</p>
-        <i class="fas fa-angle-down"></i>
-        <div class="dropdown_container hidden" >
-            <ul  class="tag_contents" id="dropdownIngredients"></ul>
+
+
+        <!--Ordered by ingrediensts-->
+        <div class="button_section">
+            <button id="btn_ingredients" class="tag_container blue curser ">    
+                <form>
+                <input  id="search_input_by_ingredient" 
+                        type="search" 
+                        class="hidden input_tag" 
+                        placeholder="Recherche un ingrédient">
+                </form>
+                Ingredients
+                <i class="fas fa-angle-down"></i>
+            </button>
+            <ul  class="tag_contents blue">
+            </ul>
         </div>
-    </div>
-    <!--Ordered by appareils-->
-    <div id="show_tag_appareil"></div>
-    <div class="tag_container green curser" id="searchByAppareils" >
-        <p>Appareils</p>
-        <i class="fas fa-angle-down"></i>
-        <div class="dropdown_container hidden" >
-            <ul  class="tag_contents" id="dropdownAppareils"></ul>
-        </div>
-    </div>
-    
-    <!--Ordered by ustensiles-->
-    <span></span>
-    <div class="tag_container red curser" id="searchByUstensils" >
-        <p>Ustensiles</p>
-        <i class="fas fa-angle-down"></i>
-        <div class="dropdown_container hidden" >
-            <ul  class="tag_contents" id="dropdownUstensils">
+        
+        <!--Ordered by appareils-->
+        <div class="button_section">
+            <button class="tag_container green curser ">    
+                Appareils
+                <i class="fas fa-angle-down"></i>
+            </button>
+            <ul  class="tag_contents green">
             </ul>
         </div>
     </div>
-</div>
 
 
 
-<div id="recipe_wrapper">
-
-    
-
-</div>
+    <div id="recipe_wrapper"></div>
 
 
 
