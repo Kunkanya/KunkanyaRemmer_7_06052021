@@ -141,9 +141,6 @@ header{
 .fa-angle-down{
   color:white;
   position : relative;
-  right: -150px;
-  top:-45px;
-  font-size: 1.5em;
 }
 
 .active > .fa-angle-down{
@@ -156,6 +153,7 @@ header{
 }
 .open{
   animation : arrow_rotate 0.5s forwards ease-in;
+ 
 }
 
 .close{

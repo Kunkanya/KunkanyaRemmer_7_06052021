@@ -225,14 +225,11 @@ function searchoption2(recipeArrays,value){
         }
 }
 /*----------------------------------------*/
-
 function removeSelectedTag(){
     const selectedTags = document.querySelectorAll(".selected_tag")
     selectedTags.forEach(selectedTag =>{
         selectedTag.addEventListener('click', (el) =>{
         el.target.remove(el.target)
-            console.log(searchInput.innerHTML)
-            
 
             if (showTags.childElementCount == 0 && searchInput.innerHTML == "")
                 {
@@ -253,21 +250,16 @@ function removeSelectedTag(){
         })
     })
 }
-/************************************************************ */
-/************************************************************ */
-/************************************************************ */
-/************************************************************ */
-/************************************************************ */
-/************************************************************ 
+
+//*******************Start dropdown section****************************
 tagContainers.forEach(tagContainer =>{
 
     tagContainer.addEventListener('click', (e) =>{
         e.preventDefault()
-        
-        
-        
+        //--close all the button if needed
+        hideTag()        
+    
         const tagContentsUl = tagContainer.nextElementSibling
-        
         tagContainer.classList.add("active")
 
         //-- once tag button is clicked => main search-input bar will be disabled
@@ -286,244 +278,52 @@ tagContainers.forEach(tagContainer =>{
                 inputByIngredient.classList.remove('hidden')
                 inputByIngredient.focus()         
 
-                const tagLis = document.querySelectorAll(".tag")
-                tagLis.forEach(tag =>{
-                    tag.addEventListener('click', (e)=>{
-                        e.preventDefault()
-                        
-                        //--close the dropdown_container after click the selected tag
-                        inputByIngredient.classList.add("hidden")
-                        tagContainer.classList.remove('active')
-                        tagContentsUl.classList.remove("ul_active")
+                //--show all the tags
+                callTagEvents("blue")
 
-                        let selectedTagIngredient = e.target.innerHTML.toLowerCase()
-                        selectedTagIngredient = selectedTagIngredient.trim()
-                        
-                            var p = document.createElement('p')
-                            var pText = document.createTextNode(selectedTagIngredient)
-                            p.appendChild(pText)
-                            p.classList.add("selected_tag")
-                            p.classList.add("curser")
-                            p.classList.add("blue")
-                            showTags.appendChild(p) 
-                            tagContainer.classList.remove("active")
 
-                            //--search trough foundarrayTemp
-                        if(foundArrayTemp.length === 0){
-                            search(recipes,selectedTagIngredient)
-                            //--ADD EventListener to each selected_tag to close
-                        }else{
-                            search(foundArrayTemp,selectedTagIngredient)
-                        }                    
-                            //-- remove selected-tag ingredient 
-                            removeSelectedTag()
-                        })  
-                })
-    
-                    //-- In case search bar in input
-                    inputByIngredient.addEventListener('keyup', (e)=>{
-                        e.preventDefault()
-                        let searchInput = e.target.value.toLowerCase().trim()
-                        //--2.return the found arrays for the recipes
-                        const foundTags = ingredients.filter((ingredient) =>{
-                                return ingredient.toLowerCase().includes(searchInput)
-                        })
-
-                        if(foundTags.length>0){
-                            tagContentsUl.innerHTML = renderTags(foundTags)
-                        } else {
-                            tagContentsUl.innerHTML = "Aucune ingredient ne correspond pas à votre critère"
-                        }
- 
-                        const tagLis = document.querySelectorAll(".tag")
-                        tagLis.forEach(tag =>{
-                            tag.addEventListener('click', (e)=>{
-                                e.preventDefault()
-                                
-                                //--close the dropdown_container after click the selected tag
-                                inputByIngredient.classList.add("hidden")
-                                tagContainer.classList.remove('active')
-                                tagContentsUl.classList.remove("ul_active")
-        
-                                let selectedTag = e.target.innerHTML.toLowerCase()
-                                selectedTag = selectedTag.trim()                                
-                                
-                                    var p = document.createElement('p')
-                                    var pText = document.createTextNode(selectedTag)
-                                    p.appendChild(pText)
-                                    p.classList.add("selected_tag")
-                                    p.classList.add("curser")
-                                    p.classList.add("blue")
-                                    showTags.appendChild(p) 
-                                    tagContainer.classList.remove("active")
-        
-                                    //--search trough foundarrayTemp
-                                if(foundArrayTemp.length === 0){
-                                    search(recipes,selectedTag)
-                                    //--ADD EventListener to each selected_tag to close
-                                }else{
-                                    search(foundArrayTemp,selectedTag)
-                                }                    
-                                    //-- remove selected-tag ingredient 
-                                    removeSelectedTag()
-                                })  
-                        })
-                                //--end if statment 
-                    })
+        //-- Case 2:first search bar in main input bar
+        inputByIngredient.addEventListener('keyup', (e)=>{
+            e.preventDefault()
+            let searchInput = e.target.value.toLowerCase().trim()
+            //--2.return the found arrays for the recipes
+            const foundTags = ingredients.filter((ingredient) =>{
+                    return ingredient.toLowerCase().includes(searchInput)
+            })
+            //--3. show result if citeria is found
+            if(foundTags.length>0){
+                tagContentsUl.innerHTML = renderTags(foundTags)
+            } else {
+                tagContentsUl.innerHTML = "Aucune ingredient ne correspond pas à votre critère"
+            }
+                //--show all the tags 
+                callTagEvents("blue")
+            })
 
         }   
-        else if ((tagContainer.classList.contains("active") && 
-        tagContainer.classList.contains("green"))){
-            tagContentsUl.classList.add("ul_active")
-            tagContentsUl.innerHTML = renderTags(appareils)
+//*******************dropdown Appareils****************************
+        else if ( tagContainer.classList.contains("active") &&  
+                tagContainer.classList.contains("green")){
+                tagContentsUl.classList.add("ul_active")
+                tagContentsUl.innerHTML = renderTags(appareils)
 
-            const tagLis = document.querySelectorAll(".tag")
-            tagLis.forEach(tag =>{
-                tag.addEventListener('click', (e)=>{
-                    e.preventDefault()
-                    
-                    //--close the dropdown_container after click the selected tag
-                    inputByIngredient.classList.add("hidden")
-                    tagContainer.classList.remove('active')
-                    tagContentsUl.classList.remove("ul_active")
-
-                    let selectedTag = e.target.innerHTML.toLowerCase()
-                    selectedTag = selectedTag.trim()                                
-                    
-                        var p = document.createElement('p')
-                        var pText = document.createTextNode(selectedTag)
-                        p.appendChild(pText)
-                        p.classList.add("selected_tag")
-                        p.classList.add("curser")
-                        p.classList.add("green") 
-                        showTags.appendChild(p) 
-                        tagContainer.classList.remove("active")
-
-                        //--search trough foundarrayTemp
-                    if(foundArrayTemp.length === 0){
-                        search(recipes,selectedTag)
-                        //--ADD EventListener to each selected_tag to close
-                    }else{
-                        search(foundArrayTemp,selectedTag)
-                    }                    
-                        //-- remove selected-tag ingredient 
-                        removeSelectedTag()
-                    })  
-            })
+                //--show all the tags
+                callTagEvents("green")
+            
+//*******************dropdown Ustensiles****************************
         }   else if ((tagContainer.classList.contains("active") && 
                     tagContainer.classList.contains("red"))){
                         tagContentsUl.classList.add("ul_active")
                         tagContentsUl.innerHTML = renderTags(ustensils)
-                        const tagLis = document.querySelectorAll(".tag")
-                        tagLis.forEach(tag =>{
-                            tag.addEventListener('click', (e)=>{
-                                e.preventDefault()
-                                //--close the dropdown_container after click the selected tag
-                                inputByIngredient.classList.add("hidden")
-                                tagContainer.classList.remove('active')
-                                tagContentsUl.classList.remove("ul_active")
-            
-                                let selectedTag = e.target.innerHTML.toLowerCase()
-                                selectedTag = selectedTag.trim()                                
-                                
-                                    var p = document.createElement('p')
-                                    var pText = document.createTextNode(selectedTag)
-                                    p.appendChild(pText)
-                                    p.classList.add("selected_tag")
-                                    p.classList.add("curser")
-                                    p.classList.add("red") 
-                                    showTags.appendChild(p) 
-                                    tagContainer.classList.remove("active")
-            
-                                    //--search trough foundarrayTemp
-                                if(foundArrayTemp.length === 0){
-                                    search(recipes,selectedTag)
-                                    //--ADD EventListener to each selected_tag to close
-                                }else{
-                                    search(foundArrayTemp,selectedTag)
-                                }                    
-                                    //-- remove selected-tag ingredient 
-                                    removeSelectedTag()
-                                })  
-                        })
-            
+                        callTagEvents("red")
+
             }
 
         })
 
 })
-//*******************END dropdown Ingredients****************************
-*/
-/*
-tag.addEventListener('click',(e)=>{
-    e.preventDefault()
-debugger
-        tagContainers.forEach(tagContainer =>{
-            if (tagContainer.classList.contains("active")&&tagContainer.classList.contains("blue")){
-                alert("blue")
-                inputByIngredient.classList.add('hidden')
-                tagContainer.classList.remove("active")
-                const tagContentsUl = tagContainer.nextElementSibling
-                tagContentsUl.classList.remove("ul_active")
-            }
-        })
+//*******************END dropdown****************************
 
-})
-
-
-tagContainers.forEach(tagContainer =>{
-    tagContainer.onblur = function(){
-        debugger
-        alert("blue")
-        if (tagContainer.classList.contains("active") 
-            && tagContainer.classList.contains("blue")){
-           
-            inputByIngredient.classList.add('hidden')
-            tagContainer.classList.remove("active")
-            const tagContentsUl = tagContainer.nextElementSibling
-            tagContentsUl.classList.remove("ul_active")
-        }
-    }
-})
-*/  
-    inputIngredient.addEventListener("focus", ()=>{
-        inputIngredient.placeholder="Recherche un ingrédient"
-        inputIngredient.classList.add("active")
-        inputIngredient.nextElementSibling.classList.add("open")
-        tags.classList.add("ul_active")
-        tags.innerHTML = renderTags(ingredients)  
-        callTagEvents("blue")
-            
-    })
-
-/*        
-inputIngredient.addEventListener("blur", ()=>{
-const x = document.getElementById('listid')
-  
-            inputIngredient.placeholder="Ingredients"
-            inputIngredient.classList.remove("active")
-       //tags.classList.remove("ul_active")
-       //tags.innerHTML = ""
-       inputIngredient.value=""
-       searchInput.classList.remove ("disable")
-    })
-*/
-inputIngredient.addEventListener('keyup', (e)=>{
-        e.preventDefault()
-        let searchInput = e.target.value.toLowerCase().trim()
-        //--2.return the found arrays for the recipes
-        const foundTags = ingredients.filter((ingredient) =>{
-                return ingredient.toLowerCase().includes(searchInput)
-        })
-
-        if(foundTags.length>0){
-            tags.innerHTML = renderTags(foundTags)
-            callTagEvents("blue")
-        } else {
-            tags.innerHTML = "Aucune ingredient ne correspond pas à votre critère"
-        }
-})
-        
 
 function callTagEvents(color){
     searchInput.classList.add ("disable")
@@ -531,9 +331,8 @@ function callTagEvents(color){
     const tagLis = document.querySelectorAll(".tag")
         tagLis.forEach(tag =>{
             tag.addEventListener('click', (e)=>{
-                debugger
-                console.log(e.target)
-                debugger    
+                e.preventDefault()
+
 
                 let selectedTag = e.target.innerHTML.toLowerCase()
                 selectedTag = selectedTag.trim()                                
@@ -545,9 +344,7 @@ function callTagEvents(color){
                     p.classList.add("curser")
                     p.classList.add(color)
                     showTags.appendChild(p) 
-                    inputIngredient.classList.remove("active")
-                    inputIngredient.placeholder="Ingrédients"
-                    tags.classList.remove("ul_active")
+                    hideTag()
                             
                     //--search trough foundarrayTemp
                 if(foundArrayTemp.length === 0){
@@ -565,27 +362,27 @@ function callTagEvents(color){
 
 }
 
-dropdownArrow.forEach(arrow =>{
-    arrow.addEventListener('click', ()=>{
-        //--open dropdown tag lists
-        if(arrow.classList.contains('open')){
-            console.log("contain open muss beclose")
-            arrow.classList.remove('open')
-            arrow.classList.add('close')
-
-
-
-            inputIngredient.placeholder="Ingredients"
-            inputIngredient.classList.remove("active")
-            tags.classList.remove("ul_active")
-            inputIngredient.value=""
-            searchInput.classList.remove ("disable")
-        }else {
-        //--close dropdown tag lists
-        arrow.classList.remove('close')
-        arrow.classList.add('open')
-            console.log("open")   
-        }
+function hideTag(){
+    tagContainers.forEach(tagContainer =>{
+        inputByIngredient.classList.add("hidden")
+        tagContainer.classList.remove("active")
+        const tagContentsUl = tagContainer.nextElementSibling
+        tagContentsUl.classList.remove("ul_active")
     })
-})
+}
 
+
+
+const clickHtml = document.querySelectorAll("html")
+clickHtml.forEach(item => {
+    item.addEventListener('click', (e)=>{
+        e.preventDefault()
+        console.log(e.target)
+        if((e.target.classList.contains("active"))||
+            (e.target.classList.contains("ul_active"))){
+            //alert("ok")
+        }else{
+            hideTag()
+        }
+    })    
+});
