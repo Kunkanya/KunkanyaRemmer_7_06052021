@@ -85,6 +85,7 @@ function renderRecipe(arrRecipe){
 //--FUNCTION validation :form control 
 /************************************************************************* */
 function inputValidation(value){ 
+    
     if (value < 3 && value >0){
         errorText.innerText =""
         errorText.classList.remove("hidden")
@@ -99,64 +100,58 @@ function inputValidation(value){
     }
 };
 /************************************************************************* */
-//--FUNCTION search
-/************************************************************************* */
-function search(arr, value){ 
-    foundArray = []
-    //--2. set each recipe to one string and set to lowercase
-    for(let i= 0; i < arr.length; i++){
+//--FUNCTION search :Version2
+/************************************************************************* */ 
+function search(recipeArrays,value){
+    debugger
+const    foundArray =  recipeArrays.filter((recipeArray) => {
+        // get all the ingredients for each recipe for checking condition later
         function listIngredient(){
             let x = "" 
-            arr[i].ingredients.forEach(ingredient=>{
-                x += ingredient.ingredient + ' '
+            recipeArray.ingredients.forEach(ingredient=>{
+                x += ingredient.ingredient.toLowerCase() + ' '
                 })
+                console.log(x)
             return x
-        }
+        }  
         function listUstensils(){
             let y = ""
-            arr[i].ustensils.forEach(ustensil=>{
-                y+= ustensil
+            recipeArray.ustensils.forEach(ustensil=>{
+                y+= ustensil.toLowerCase()
+                console.log(y)
             })
             return y
         }
-        //-- put the name + all in redient + description in to one tempRecipe  for searching
-        let tempRecipe = arr[i].name + " , " +
-                         listIngredient() + " , " + 
-                         arr[i].description + " , " + 
-                         arr[i].appliance + " , " +
-                         listUstensils()
-                            
-        tempRecipe = tempRecipe.toLowerCase()
-        tempRecipe = tempRecipe.trim()
-        //console.log(tempRecipe)
-        let foundItemBoolean = tempRecipe.includes(value)
-        if(foundItemBoolean === true) {
-            resultSearch.innerHTML =""
-            foundArray.push(arr[i])      
+        
+        return recipeArray.name.toLowerCase().includes(value) ||
+        recipeArray.description.toLowerCase().includes(value) ||
+        listIngredient().includes(value)||
+        listUstensils().includes(value)||
+        recipeArray.appliance.toLowerCase().includes(value)
+        
+    })
+    debugger
+    console.log(foundArray)
+    if(foundArray.length > 0 || foundArrayTemp.length > 0){
+          console.log(foundArray)
+          recipeContainer.innerHTML =""
+          // call function renderRecipe to create HTML for each founded recipes
+          filterIngredienst(foundArray)
+          filterAppareils(foundArray)
+          filterUstensils(foundArray)
+          renderRecipe(foundArray)
+          foundArrayTemp = foundArray
+          console.log("foundArray")
+          console.log(foundArray)
+          console.log("foundArrayTemp")
+          console.log(foundArrayTemp)
+            return foundArray
+        }else{
+          // show no found result
+          recipeContainer.innerText= "Aucune recette ne correspond à votre critère...vous puvez chercher 'tarte aux pommes', 'poisson'. etc"
         }
-    }
-    //--cehck if something in found array
-    if(foundArray.length || foundArrayTemp.length > 0){
-        recipeContainer.innerHTML =""
-        // call function renderRecipe to create HTML for each founded recipes
-        filterIngredienst(foundArray)
-        filterAppareils(foundArray)
-        filterUstensils(foundArray)
-        renderRecipe(foundArray)
-    }else{
-        // show no found result
-        debugger
-        recipeContainer.innerText= "Aucune recette ne correspond à votre critère...vous puvez chercher 'tarte aux pommes', 'poisson'. etc"
-    }
-    
-    foundArrayTemp = foundArray
-//    console.log("foundArray =")
-//    console.log(foundArray)
-//    console.log("foundArrayTemp =")
-//    console.log(foundArrayTemp)
-    
-    return foundArrayTemp, foundArray
-};
+}
+
 
 //----------------------------------------------------------------------------
 //--1. Initial all RECIPE_WRAPPER SECTION- show all recipes once page loaded by calling funtion renderRecipe() 
@@ -184,48 +179,6 @@ searchInput.addEventListener("keyup", (e)=>{
     //-- 2. Call function search and give the array which need to be searched with searchWord
        search(recipes, searchWord)
 })
-/*--funciton search--*/
-function searchoption2(recipeArrays,value){
-    const foundArray =  recipeArrays.filter((recipeArray) => {
-        // get all the ingredients for each recipe for checking condition later
-        function listIngredient(){
-            let x = "" 
-            recipeArray.ingredients.forEach(ingredient=>{
-                x += ingredient.ingredient + ' '
-                })
-                console.log(x)
-            return x
-        }  
-        function listUstensils(){
-            let y = ""
-            arr[i].ustensils.forEach(ustensil=>{
-                y+= ustensil
-            })
-            return y
-        }
-        
-        return recipeArray.name.toLowerCase().includes(value) ||
-        recipeArray.description.toLowerCase().includes(value) ||
-        listIngredient().includes(value)||
-        listUstensils().includes(value)||
-        recipeArray.appliance.toLowerCase().includes(value)
-        
-    })
-    console.log(foundArray)
-    if(foundArray.length > 0){
-        //  console.log(foundArray)
-          recipeContainer.innerHTML =""
-          // call function renderRecipe to create HTML for each founded recipes
-          filterIngredienst(foundArray)
-          filterAppareils(foundArray)
-          filterUstensils(foundArray)
-          renderRecipe(foundArray)
-          return foundArray
-        }else{
-          // show no found result
-          recipeContainer.innerText= "Aucune recette ne correspond à votre critère...vous puvez chercher 'tarte aux pommes', 'poisson'. etc"
-        }
-}
 /************************************************************************* */
 //--FUNCTION removed selected tags 
 /************************************************************************* */
@@ -333,7 +286,7 @@ tagContainers.forEach(tagContainer =>{
 //--FUNCTION - Eventlistener for create new tags
 /************************************************************************* */
 function callTagEvents(color){
-    debugger
+    
     searchInput.classList.add ("disable")
 
     const tagLis = document.querySelectorAll(".tag")
@@ -356,7 +309,9 @@ function callTagEvents(color){
                     showTags.appendChild(p) 
                     searchInput.classList.add ("disable")
                     hideTag()
-                }            
+                }           
+                debugger 
+                console.log(foundArrayTemp)
                     //--search trough foundarrayTemp
                 if(foundArrayTemp.length === 0){
                     

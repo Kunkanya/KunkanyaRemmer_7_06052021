@@ -84,8 +84,7 @@ body{
   right: 20px;
 }
 /*--dropdown section*/
-.dropdown{
-  position : relative;
+.tag_wrapper{
   display: flex;
   flex-direction: row;
 }
@@ -326,3 +325,4 @@ body{
   -webkit-line-clamp: 8 ;
   -webkit-box-orient: vertical;
 }
+
