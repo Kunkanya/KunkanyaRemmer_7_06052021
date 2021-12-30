@@ -25,6 +25,10 @@ export default class classRecipe{
                 </ul>
                 <p class="description">${this.description}</p>
             </div>
+            <div class="cooking_section">appliance: ${this.appliance}
+            </div>
+            <div class="cooking_section">utensils: ${this.ustensiles}
+            </div>
         </div>
     </div>
     `
@@ -69,18 +73,5 @@ export default class classRecipe{
         `
     }
 
-    concatenateString(){
-        function allIngredients(){
-            this.ingredient.forEach(eachIngredient => {
-                let x
-                x.concat(eachIngredient)
-                console.log(x)
-                return x
-            });
-        }
-        let tempRecipe = ""
-         tempRecipe.concat(this.name, this.description,this.appliance,this.ustensiles,allIngredients())
-        console.log(tempRecipe)
-        //console.log(tempRecipe)   
-    }
+
 }

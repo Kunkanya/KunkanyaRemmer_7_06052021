@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -18,11 +19,12 @@
 
 <!--Search bar section-->
 <section id="search">
-    <form class="form_container curser" action="">
+    <form class="form_container curser">
+        <div id="result_search"></div>
         <small id="error" class="hidden">p</small>
         <input class="tag"
             id="search_input"
-            type="text" 
+            type="search" 
             placeholder="Rechercher un ingrédient, appareil, ustensiles ou une recette">
         <i class="fas fa-search"></i>
     </form>
@@ -30,55 +32,49 @@
 
 <!--Dropdown search each category-->
 <main>
-    <div class="show_selected_tag"></div>
+    <!--show selected tags area-->
+    <div id="show_tag" class="hidden"></div>
 
 
-<div class="dropdown">
-    <!--Ordered by ingrediensts-->
-    <!--<span id="selected_ingredient"><i class="far fa-times-circle"></i></span> -->
-    <div class="tag_container curser" id="searchByIngredients" data-dropdown >
-        <input type="text" class="hidden" placeholder="Recherche un ingédient">
-        <i class="fas fa-angle-down"></i>
-        <button class="link">Ingredients</button>
-        <ul  class="tag_contents" data-ingredients data-dropdown-menu>
-                <li>ass</li>
-                <li>ass</li>
-                <li>ass</li>
-                <li>ass</li>
-                <li>ass</li>
-        </ul>
-    </div>
-    <!--Ordered by appareils-->
-    <div class="tag_container curser" id="searchByAppareils" data-dropdown-menu >
-        <p>Appareils</p>
-        <i class="fas fa-angle-down"></i>
-    </div>
-    
-    <!--Ordered by ustensiles-->
-    <div class="tag_container curser" id="searchByUstensiles" >
-        <p>Ustensiles</p>
-        <i class="fas fa-angle-down"></i>
-    </div>
+    <div class="tag_wrapper">
+        <!--Ordered by ingrediensts-->
+        <div class="button_section">
+            <button id="btn_ingredients" class="tag_container blue curser ">    
+                Ingredients
+                <form>
+                <input  id="search_input_by_ingredient" 
+                        type="search" 
+                        class="hidden input_tag" 
+                        placeholder="Recherche un ingrédient">
+                </form>
+                <i class="fas fa-angle-down"></i>
+            </button>
+            <ul  class="tag_contents blue">
+            </ul>
+        </div>
+        
+        <!--Ordered by appareils-->
+        <div class="button_section">
+            <button class="tag_container green curser ">    
+                Appareils
+                <i class="fas fa-angle-down"></i>
+            </button>
+            <ul  class="tag_contents green">
+            </ul>
+        </div>
+        <!--Ordered by appareils-->
+        <div class="button_section">
+            <button class="tag_container red curser ">    
+                Ustensiles
+                <i class="fas fa-angle-down"></i>
+            </button>
+            <ul  class="tag_contents red">
+            </ul>
+        </div>
 </div>
 
-
-
-<div id="recipe_wrapper">
-
-    
-
-</div>
-
-
-<div class="dropdown">
-    <button>Ingredient</button>
-    <ul class="test">
-        <li>skdsö</li>
-        <li>skdsö</li>
-        <li>skdsö</li>
-        <li>skdsö</li>
-    </ul>
-</div>
+<!--section to show all the recipes-->
+<div id="recipe_wrapper"></div>
 
 </main>
 <!--Script javascript and bootstrap-->
