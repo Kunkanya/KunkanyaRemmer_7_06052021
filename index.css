@@ -8,8 +8,6 @@
     --color_cinq:#ED6454;
 }
 
-
-
 *,
 *::before,
 *::after {
@@ -34,6 +32,9 @@ ul {
   display:none; 
 }
 
+.disable{
+  pointer-events: none;
+}
 
 .show{
   display: block;
@@ -46,7 +47,8 @@ ul {
 body{
     margin: 2em;
   }
-header{
+
+  header{
   display: flex;
   justify-content: center;
 }
@@ -179,6 +181,8 @@ header{
   border: pink;
   position: absolute;
   top:0;
+  left:0;
+  padding-left: 0.5em;
   outline:none;
 }
 
@@ -199,22 +203,6 @@ header{
   overflow-y: scroll; 
   pointer-events: none;
   opacity: 0;
-}
-.tag_contents2{
-  border-radius: 0 0 5px 5px;
-  color: white;
-  padding: 1em;
-  width: 600px;
-  top: 65px;
-  position : absolute;
-  display: grid;
-  height: fit-content;
-  grid-template-columns: repeat(3,1fr);
-  grid-template-rows: auto;
-  font-size: 0.7em;
-  z-index: 3;
-  overflow-y: scroll; 
-
 }
 
 /*once UL list in active state*/
@@ -255,7 +243,6 @@ header{
   position : relative;
 }
 
-
 #btn_Ingredients + .tag_contents ul, 
 #selected_ingredient ,
 [data-button="ingredients"],
@@ -285,9 +272,7 @@ header{
   grid-template-rows: auto;
   row-gap: 2em;
   justify-self: center;
-  margin-top: 5em;
-  height: 500px;
-  overflow-y: scroll;
+  margin-top: 2em;
 }
 .recipe_container{
 /*  height: 365px; --- Actual size*/
@@ -341,8 +326,5 @@ header{
   -webkit-box-orient: vertical;
 }
 
-.disable{
-  pointer-events: none;
-}
 
 
