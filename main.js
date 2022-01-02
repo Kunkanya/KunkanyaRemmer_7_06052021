@@ -114,6 +114,7 @@ const    foundArray =  recipeArrays.filter((recipeArray) => {
                 console.log(x)
             return x
         }  
+        // get all the ustensils for each recipe for checking condition later
         function listUstensils(){
             let y = ""
             recipeArray.ustensils.forEach(ustensil=>{
@@ -130,8 +131,7 @@ const    foundArray =  recipeArrays.filter((recipeArray) => {
         recipeArray.appliance.toLowerCase().includes(value)
         
     })
-    debugger
-    console.log(foundArray)
+
     if(foundArray.length > 0 || foundArrayTemp.length > 0){
           console.log(foundArray)
           recipeContainer.innerHTML =""
@@ -141,10 +141,6 @@ const    foundArray =  recipeArrays.filter((recipeArray) => {
           filterUstensils(foundArray)
           renderRecipe(foundArray)
           foundArrayTemp = foundArray
-          console.log("foundArray")
-          console.log(foundArray)
-          console.log("foundArrayTemp")
-          console.log(foundArrayTemp)
             return foundArray
         }else{
           // show no found result
@@ -328,7 +324,7 @@ function callTagEvents(color){
 
 }
 /************************************************************************* */
-//--FUNCTION - set back to the orginal state for all the buttons
+//--FUNCTION - set back to the orginal state for all buttons
 /************************************************************************* */
 function hideTag(){
     tagContainers.forEach(tagContainer =>{
