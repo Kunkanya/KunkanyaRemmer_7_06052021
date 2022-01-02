@@ -9,6 +9,7 @@ const errorText = document.getElementById("error")
 const recipeContainer = document.getElementById("recipe_wrapper")
 const resultSearch = document.getElementById("result_search")
 
+const formContainer = document.getElementById("search")
 //--variables
 let ingredients = []
 let arrIngredients = [] 
@@ -17,7 +18,9 @@ let arrAppareils =[]
 let ustensils = []
 let arrUstensils =[]
 let valid = false
+let searchWord =""
 var foundArray =[]
+
 var foundArrayTemp = []
 
 /************************************************************************* */
@@ -145,16 +148,10 @@ function search(arr, value){
         renderRecipe(foundArray)
     }else{
         // show no found result
-        debugger
         recipeContainer.innerText= "Aucune recette ne correspond à votre critère...vous puvez chercher 'tarte aux pommes', 'poisson'. etc"
     }
     
     foundArrayTemp = foundArray
-//    console.log("foundArray =")
-//    console.log(foundArray)
-//    console.log("foundArrayTemp =")
-//    console.log(foundArrayTemp)
-    
     return foundArrayTemp, foundArray
 };
 
@@ -172,7 +169,7 @@ searchInput.focus()
 searchInput.addEventListener("keyup", (e)=>{
     e.preventDefault()
     let searchStr = searchInput.value
-    let searchWord = searchStr.toLowerCase()
+     searchWord = searchStr.toLowerCase()
         searchWord = searchWord.trim()
     let searchWordLength = searchInput.value.length
 
@@ -184,48 +181,6 @@ searchInput.addEventListener("keyup", (e)=>{
     //-- 2. Call function search and give the array which need to be searched with searchWord
        search(recipes, searchWord)
 })
-/*--funciton search--*/
-function searchoption2(recipeArrays,value){
-    const foundArray =  recipeArrays.filter((recipeArray) => {
-        // get all the ingredients for each recipe for checking condition later
-        function listIngredient(){
-            let x = "" 
-            recipeArray.ingredients.forEach(ingredient=>{
-                x += ingredient.ingredient + ' '
-                })
-                console.log(x)
-            return x
-        }  
-        function listUstensils(){
-            let y = ""
-            arr[i].ustensils.forEach(ustensil=>{
-                y+= ustensil
-            })
-            return y
-        }
-        
-        return recipeArray.name.toLowerCase().includes(value) ||
-        recipeArray.description.toLowerCase().includes(value) ||
-        listIngredient().includes(value)||
-        listUstensils().includes(value)||
-        recipeArray.appliance.toLowerCase().includes(value)
-        
-    })
-    console.log(foundArray)
-    if(foundArray.length > 0){
-        //  console.log(foundArray)
-          recipeContainer.innerHTML =""
-          // call function renderRecipe to create HTML for each founded recipes
-          filterIngredienst(foundArray)
-          filterAppareils(foundArray)
-          filterUstensils(foundArray)
-          renderRecipe(foundArray)
-          return foundArray
-        }else{
-          // show no found result
-          recipeContainer.innerText= "Aucune recette ne correspond à votre critère...vous puvez chercher 'tarte aux pommes', 'poisson'. etc"
-        }
-}
 /************************************************************************* */
 //--FUNCTION removed selected tags 
 /************************************************************************* */
@@ -234,21 +189,26 @@ function removeSelectedTag(){
     selectedTags.forEach(selectedTag =>{
         selectedTag.addEventListener('click', (el) =>{
         el.target.remove(el.target)
+        console.log(searchWord)
 
-            if (showTags.childElementCount == 0 && searchInput.innerHTML == "")
+            if (showTags.childElementCount == 0 && searchWord == "")
                 {
-                location.reload()
-                searchInput.classList.remove("disable")
+                    location.reload()
 
-            } else if(showTags.childElementCount > 1)
+            } else if(showTags.childElementCount > 1 && searchWord == "")
                     {
                         search(recipes, showTags.childNodes[0].innerText)
                         for(let i = 1; i < showTags.childElementCount ; i++){                                        
                             search(foundArrayTemp, showTags.childNodes[i].innerText)
                         } 
                     }
-                else{
-                    search(recipes, showTags.childNodes[0].innerText)
+                    else if(searchWord)
+                    {
+                        search(recipes, searchWord)
+                        for(let i = 0; i < showTags.childElementCount ; i++){                                        
+                            search(foundArrayTemp, showTags.childNodes[i].innerText)
+                        } 
+                        searchInput.classList.remove("disable")
                     }
     
         })
@@ -263,12 +223,10 @@ tagContainers.forEach(tagContainer =>{
         e.preventDefault()
         //--close all the button if needed
         hideTag()        
-    
+
         const tagContentsUl = tagContainer.nextElementSibling
         tagContainer.classList.add("active")
 
-        //-- once tag button is clicked => main search-input bar will be disabled
-        searchInput.classList.add("disable")
         
 //*******************dropdown Ingredients****************************
         //--show all the Ingredients
@@ -333,16 +291,15 @@ tagContainers.forEach(tagContainer =>{
 //--FUNCTION - Eventlistener for create new tags
 /************************************************************************* */
 function callTagEvents(color){
-    debugger
-    searchInput.classList.add ("disable")
 
     const tagLis = document.querySelectorAll(".tag")
         tagLis.forEach(tag =>{
             tag.addEventListener('click', (e)=>{
                 e.preventDefault()
                 let selectedTag = e.target.innerHTML.toLowerCase()
-                selectedTag = selectedTag.trim()      
-                
+                selectedTag = selectedTag.trim()     
+                //-- once tag button is clicked => main search-input bar will be disabled
+                searchInput.classList.add ("disable")
                 // check if tag is selected => thenshow tag
                 if(selectedTag === ""){
                     return
@@ -354,7 +311,6 @@ function callTagEvents(color){
                     p.classList.add("curser")
                     p.classList.add(color)
                     showTags.appendChild(p) 
-                    searchInput.classList.add ("disable")
                     hideTag()
                 }            
                     //--search trough foundarrayTemp
@@ -393,10 +349,8 @@ clickHtml.forEach(item => {
         console.log(e.target)
         if((e.target.classList.contains("active"))||
             (e.target.classList.contains("ul_active"))){
-            //alert("ok")
         }else{
-            hideTag()
-           // searchInput.classList.remove("disable")
+                hideTag()
         }
     })    
 });
