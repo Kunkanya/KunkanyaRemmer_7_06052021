@@ -139,7 +139,7 @@ function search(arr, value){
         }
     }
     //--cehck if something in found array
-    if(foundArray.length || foundArrayTemp.length > 0){
+    if(foundArray.length > 0){
         recipeContainer.innerHTML =""
         // call function renderRecipe to create HTML for each founded recipes
         filterIngredienst(foundArray)
