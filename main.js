@@ -17,6 +17,7 @@ let arrAppareils =[]
 let ustensils = []
 let arrUstensils =[]
 let valid = false
+var searchWord = ""
 var foundArray =[]
 var foundArrayTemp = []
 
@@ -103,7 +104,6 @@ function inputValidation(value){
 //--FUNCTION search :Version2
 /************************************************************************* */ 
 function search(recipeArrays,value){
-    debugger
 const    foundArray =  recipeArrays.filter((recipeArray) => {
         // get all the ingredients for each recipe for checking condition later
         function listIngredient(){
@@ -131,9 +131,7 @@ const    foundArray =  recipeArrays.filter((recipeArray) => {
         recipeArray.appliance.toLowerCase().includes(value)
         
     })
-
-    if(foundArray.length > 0 || foundArrayTemp.length > 0){
-          console.log(foundArray)
+    if(foundArray.length > 0){
           recipeContainer.innerHTML =""
           // call function renderRecipe to create HTML for each founded recipes
           filterIngredienst(foundArray)
@@ -163,7 +161,7 @@ searchInput.focus()
 searchInput.addEventListener("keyup", (e)=>{
     e.preventDefault()
     let searchStr = searchInput.value
-    let searchWord = searchStr.toLowerCase()
+        searchWord = searchStr.toLowerCase()
         searchWord = searchWord.trim()
     let searchWordLength = searchInput.value.length
 
@@ -183,21 +181,26 @@ function removeSelectedTag(){
     selectedTags.forEach(selectedTag =>{
         selectedTag.addEventListener('click', (el) =>{
         el.target.remove(el.target)
+//        console.log(searchWord)
 
-            if (showTags.childElementCount == 0 && searchInput.innerHTML == "")
+            if (showTags.childElementCount == 0 && searchWord == "")
                 {
-                location.reload()
-                searchInput.classList.remove("disable")
+                    location.reload()
 
-            } else if(showTags.childElementCount > 1)
+            } else if(showTags.childElementCount >= 1 && searchWord == "")
                     {
                         search(recipes, showTags.childNodes[0].innerText)
                         for(let i = 1; i < showTags.childElementCount ; i++){                                        
                             search(foundArrayTemp, showTags.childNodes[i].innerText)
                         } 
                     }
-                else{
-                    search(recipes, showTags.childNodes[0].innerText)
+            else if(searchWord)
+                    {
+                        search(recipes, searchWord)
+                        for(let i = 0; i < showTags.childElementCount ; i++){                                        
+                            search(foundArrayTemp, showTags.childNodes[i].innerText)
+                        } 
+                        searchInput.classList.remove("disable")
                     }
     
         })
@@ -215,9 +218,6 @@ tagContainers.forEach(tagContainer =>{
     
         const tagContentsUl = tagContainer.nextElementSibling
         tagContainer.classList.add("active")
-
-        //-- once tag button is clicked => main search-input bar will be disabled
-        searchInput.classList.add("disable")
         
 //*******************dropdown Ingredients****************************
         //--show all the Ingredients
@@ -283,7 +283,6 @@ tagContainers.forEach(tagContainer =>{
 /************************************************************************* */
 function callTagEvents(color){
     
-    searchInput.classList.add ("disable")
 
     const tagLis = document.querySelectorAll(".tag")
         tagLis.forEach(tag =>{
@@ -291,6 +290,9 @@ function callTagEvents(color){
                 e.preventDefault()
                 let selectedTag = e.target.innerHTML.toLowerCase()
                 selectedTag = selectedTag.trim()      
+                //-- once tag button is clicked => main search-input bar will be disabled
+                searchInput.classList.add("disable")
+
                 
                 // check if tag is selected => thenshow tag
                 if(selectedTag === ""){
@@ -303,11 +305,10 @@ function callTagEvents(color){
                     p.classList.add("curser")
                     p.classList.add(color)
                     showTags.appendChild(p) 
-                    searchInput.classList.add ("disable")
                     hideTag()
                 }           
-                debugger 
-                console.log(foundArrayTemp)
+                
+                //console.log(foundArrayTemp)
                     //--search trough foundarrayTemp
                 if(foundArrayTemp.length === 0){
                     
@@ -347,7 +348,6 @@ clickHtml.forEach(item => {
             //alert("ok")
         }else{
             hideTag()
-           // searchInput.classList.remove("disable")
         }
     })    
 });
