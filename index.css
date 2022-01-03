@@ -103,30 +103,15 @@ body{
   font-size: 1.3em;
   color: white;
   margin-right:  3em;
-  overflow: hidden;
+  overflow-y: hidden;
 }
 .tag{
   color:white;
 }
-.tag_container2{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.5em;
-  position:relative;
-  width: 170px;
-  height: 70px;
-  border-radius:  5px;
-  border: none;
-  font-size: 1.3em;
-  color: white;
-  margin-right:  3em;
-}
 
-.tag_container::placeholder{
+#search_input_by_ingredient::placeholder{
   color :white;
-  opacity: 1;
+  font-size: 1.2em;
 }
 .tag_container:hover > ul{
   opacity: 1;
@@ -178,7 +163,6 @@ body{
   width: 80%;
   height: 50px;
   font-size: 0.8em;
-  border: pink;
   position: absolute;
   top:0;
   left:0;
@@ -190,12 +174,12 @@ body{
 .tag_contents{
   border-radius: 0 0 5px 5px;
   color: white;
-  padding: 1em;
+  padding: 2em;
   width: 600px;
+  /*height: 200px;*/
   top: 65px;
   position : absolute;
   display: grid;
-  height: fit-content;
   grid-template-columns: repeat(3,1fr);
   grid-template-rows: auto;
   font-size: 0.7em;

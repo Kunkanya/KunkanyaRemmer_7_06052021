@@ -111,7 +111,6 @@ const    foundArray =  recipeArrays.filter((recipeArray) => {
             recipeArray.ingredients.forEach(ingredient=>{
                 x += ingredient.ingredient.toLowerCase() + ' '
                 })
-                console.log(x)
             return x
         }  
         // get all the ustensils for each recipe for checking condition later
@@ -119,18 +118,16 @@ const    foundArray =  recipeArrays.filter((recipeArray) => {
             let y = ""
             recipeArray.ustensils.forEach(ustensil=>{
                 y+= ustensil.toLowerCase()
-                console.log(y)
             })
             return y
         }
         
         return recipeArray.name.toLowerCase().includes(value) ||
         recipeArray.description.toLowerCase().includes(value) ||
-        listIngredient().includes(value)||
-        listUstensils().includes(value)||
+        listIngredient().includes(value) ||
+        listUstensils().includes(value) ||
         recipeArray.appliance.toLowerCase().includes(value)
-        
-    })
+        })
     if(foundArray.length > 0){
           recipeContainer.innerHTML =""
           // call function renderRecipe to create HTML for each founded recipes
