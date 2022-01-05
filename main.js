@@ -142,8 +142,6 @@ const    foundArray =  recipeArrays.filter((recipeArray) => {
           recipeContainer.innerText= "Aucune recette ne correspond à votre critère...vous puvez chercher 'tarte aux pommes', 'poisson'. etc"
         }
 }
-
-
 //----------------------------------------------------------------------------
 //--1. Initial all RECIPE_WRAPPER SECTION- show all recipes once page loaded by calling funtion renderRecipe() 
 //----------------------------------------------------------------------------
@@ -179,12 +177,10 @@ function removeSelectedTag(){
         selectedTag.addEventListener('click', (el) =>{
         el.target.remove(el.target)
 //        console.log(searchWord)
-
             if (showTags.childElementCount == 0 && searchWord == "")
                 {
                     location.reload()
-
-            } else if(showTags.childElementCount >= 1 && searchWord == "")
+            }else if(showTags.childElementCount >= 1 && searchWord == "")
                     {
                         search(recipes, showTags.childNodes[0].innerText)
                         for(let i = 1; i < showTags.childElementCount ; i++){                                        
@@ -327,6 +323,7 @@ function callTagEvents(color){
 function hideTag(){
     tagContainers.forEach(tagContainer =>{
         inputByIngredient.classList.add("hidden")
+        inputByIngredient.innerText=""
         tagContainer.classList.remove("active")
         const tagContentsUl = tagContainer.nextElementSibling
         tagContentsUl.classList.remove("ul_active")
