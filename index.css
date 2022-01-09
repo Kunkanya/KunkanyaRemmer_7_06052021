@@ -342,7 +342,7 @@ body{
 
 }
 
-@media screen and (max-width: 425px ){
+@media screen and (max-width: 426px ){
   body{
     margin:0.8em;
   }
@@ -362,7 +362,7 @@ body{
     font-size: 1em;
   }
   .tag_contents{
-    grid-template-columns: repeat(2,auto);
+    grid-template-columns: 1;
     width: 100%;
     top:45px;
     height: auto;
