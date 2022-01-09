@@ -353,7 +353,7 @@ body{
 
 }
 
-@media screen and (max-width: 425px ){
+@media screen and (max-width: 426px ){
   body{
     margin:0.8em;
   }
