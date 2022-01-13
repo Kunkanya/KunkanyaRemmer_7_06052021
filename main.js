@@ -102,7 +102,7 @@ function inputValidation(value){
     }
 };
 /************************************************************************* */
-//--FUNCTION search
+//--FUNCTION search Version 1 : boulce FOR
 /************************************************************************* */
 function search(arr, value){ 
     foundArray = []
@@ -122,7 +122,8 @@ function search(arr, value){
             })
             return y
         }
-        //-- put the name + all in redient + description in to one tempRecipe  for searching
+        //-- put the name + all in redient + description in to 
+        //-- one tempRecipe  for searching
         let tempRecipe = arr[i].name + " , " +
                          listIngredient() + " , " + 
                          arr[i].description + " , " + 
@@ -138,7 +139,7 @@ function search(arr, value){
             foundArray.push(arr[i])      
         }
     }
-    //--cehck if something in found array
+    //--check if something in found array
     if(foundArray.length > 0){
         recipeContainer.innerHTML =""
         // call function renderRecipe to create HTML for each founded recipes
