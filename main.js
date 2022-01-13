@@ -189,13 +189,13 @@ function removeSelectedTag(){
     selectedTags.forEach(selectedTag =>{
         selectedTag.addEventListener('click', (el) =>{
         el.target.remove(el.target)
-        console.log(searchWord)
+       // console.log(searchWord)
 
             if (showTags.childElementCount == 0 && searchWord == "")
                 {
                     location.reload()
 
-            } else if(showTags.childElementCount > 1 && searchWord == "")
+            } else if(showTags.childElementCount >= 1 && searchWord == "")
                     {
                         search(recipes, showTags.childNodes[0].innerText)
                         for(let i = 1; i < showTags.childElementCount ; i++){                                        
@@ -346,7 +346,7 @@ const clickHtml = document.querySelectorAll("html")
 clickHtml.forEach(item => {
     item.addEventListener('click', (e)=>{
         e.preventDefault()
-        console.log(e.target)
+//        console.log(e.target)
         if((e.target.classList.contains("active"))||
             (e.target.classList.contains("ul_active"))){
         }else{
