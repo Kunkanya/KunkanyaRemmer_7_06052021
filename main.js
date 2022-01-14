@@ -92,7 +92,7 @@ function inputValidation(value){
         errorText.innerText =""
         errorText.classList.remove("hidden")
         errorText.classList.add("error_text")
-        errorText.innerText ="Veuilliez vous saisir au moins 3 charactères"
+        errorText.innerText ="Veuilliez vous saisir au moins 3 caractères"
         valid = false
         return valid
     } else {
